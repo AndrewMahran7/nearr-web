@@ -1,26 +1,131 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Warm cream surface (Nearr's LightColors palette, constants/theme.tsx) */
+  --color-cream: #fff8f1;
+  --color-cream-elevated: #fff3e7;
+  --color-paper: #ffffff;
+  --color-border: #e7d6c4;
+
+  /* Ink text on cream */
+  --color-ink: #1f1913;
+  --color-ink-soft: #6f6257;
+  --color-ink-muted: #75695d; /* darkened from the app's #8a7d72 token — that value is under 4.5:1 on cream for body text (WCAG AA) */
+
+  /* Nearr orange (the app-wide shipping accent, constants/colors.ts) */
+  --color-orange: #ff6a1a;
+  --color-orange-deep: #a8420f; /* darkened from the app's #d85c16 light-theme token — that value is under 4.5:1 for text on cream/white (WCAG AA) */
+  --color-orange-bright: #ff8a1c;
+  --color-orange-red: #e5512c;
+
+  /* Dark "recognition" surface, used sparingly for the Shazam section */
+  --color-near-black: #15100c;
+  --color-near-black-elevated: #201811;
+  --color-near-black-border: #362a1f;
+  --color-cream-on-dark: #fff8f1;
+  --color-cream-on-dark-soft: #cbb9a8;
+
+  --color-success: #1f9d55;
+
+  --shadow-soft: 0 1px 2px rgba(31, 25, 19, 0.04), 0 8px 24px -12px rgba(31, 25, 19, 0.18);
+  --shadow-card: 0 1px 1px rgba(31, 25, 19, 0.03), 0 20px 48px -20px rgba(31, 25, 19, 0.28);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-cream: var(--color-cream);
+  --color-cream-elevated: var(--color-cream-elevated);
+  --color-paper: var(--color-paper);
+  --color-border: var(--color-border);
+  --color-ink: var(--color-ink);
+  --color-ink-soft: var(--color-ink-soft);
+  --color-ink-muted: var(--color-ink-muted);
+  --color-orange: var(--color-orange);
+  --color-orange-deep: var(--color-orange-deep);
+  --color-orange-bright: var(--color-orange-bright);
+  --color-orange-red: var(--color-orange-red);
+  --color-near-black: var(--color-near-black);
+  --color-near-black-elevated: var(--color-near-black-elevated);
+  --color-near-black-border: var(--color-near-black-border);
+  --color-cream-on-dark: var(--color-cream-on-dark);
+  --color-cream-on-dark-soft: var(--color-cream-on-dark-soft);
+  --color-success: var(--color-success);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-jakarta);
+
+  --animate-fade-up: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-fade-in: fade-in 0.5s ease-out forwards;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+::selection {
+  background: var(--color-orange);
+  color: var(--color-cream);
+}
+
+/*
+ * Reveal-on-scroll primitive. Content is visible by default — the .reveal
+ * class alone does nothing. useReveal() (src/lib/useReveal.ts) applies
+ * .reveal-armed itself, synchronously, only once it has also set up the
+ * IntersectionObserver (plus a fallback timer) that will add .is-visible.
+ * That way a no-JS client, or JS that throws before the hook runs, never
+ * sees hidden content — only a working reveal can hide it in the first
+ * place.
+ */
+.reveal.reveal-armed {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.reveal-armed.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Focus visibility, kept consistent across custom interactive elements */
+:focus-visible {
+  outline: 2px solid var(--color-orange);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
