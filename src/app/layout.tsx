@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { siteConfig } from "@/lib/config";
+import { siteConfig, APP_STORE_URL } from "@/lib/config";
 import "./globals.css";
 
 const inter = Inter({
@@ -32,6 +32,7 @@ export const metadata: Metadata = {
     "identify locations in videos",
     "TikTok travel map",
     "save places from Instagram",
+    "save places from Facebook",
   ],
   authors: [{ name: siteConfig.name }],
   openGraph: {
@@ -60,6 +61,12 @@ const jsonLd = {
   operatingSystem: "iOS",
   description: siteConfig.description,
   url: siteConfig.url,
+  downloadUrl: APP_STORE_URL,
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "USD",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

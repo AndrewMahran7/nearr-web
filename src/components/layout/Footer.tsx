@@ -51,8 +51,8 @@ export function Footer() {
           <p>&copy; {year} Nearr. All rights reserved.</p>
           <p>
             Nearr is not affiliated with, endorsed by, or sponsored by
-            Instagram, TikTok, Meta Platforms, or ByteDance. Instagram and
-            TikTok are trademarks of their respective owners.
+            Instagram, TikTok, Facebook, Meta Platforms, or ByteDance. All
+            trademarks belong to their respective owners.
           </p>
         </div>
       </Container>

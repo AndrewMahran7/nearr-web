@@ -8,7 +8,7 @@ import { useReveal } from "@/lib/useReveal";
 const STEPS = [
   {
     title: "See somewhere you want to go",
-    body: "Scrolling Instagram or TikTok and something catches your eye.",
+    body: "Scrolling social media and something catches your eye.",
     icon: SparkIcon,
   },
   {

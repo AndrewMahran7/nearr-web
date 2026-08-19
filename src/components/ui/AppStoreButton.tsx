@@ -27,16 +27,14 @@ export function AppStoreButton({
   tone?: keyof typeof TONES;
   className?: string;
 }) {
-  const href = APP_STORE_URL ?? "#";
   const toneClasses = TONES[tone];
 
   return (
     <a
-      href={href}
-      onClick={(event) => {
-        track(ANALYTICS_EVENTS.APP_STORE_CTA_CLICKED, { source });
-        if (!APP_STORE_URL) event.preventDefault();
-      }}
+      href={APP_STORE_URL}
+      target="_blank"
+      rel="noopener noreferrer"
+      onClick={() => track(ANALYTICS_EVENTS.APP_STORE_CTA_CLICKED, { source })}
       aria-label="Download Nearr on the App Store"
       className={`group inline-flex items-center gap-3 rounded-2xl px-6 py-3.5 shadow-soft transition-transform duration-200 hover:-translate-y-0.5 active:translate-y-0 ${toneClasses.button} ${toneClasses.text} ${className}`}
     >

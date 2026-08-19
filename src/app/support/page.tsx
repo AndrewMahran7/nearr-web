@@ -46,16 +46,20 @@ export default function SupportPage() {
         <div className="flex flex-col gap-4">
           <div>
             <h3 className="mb-1 text-sm font-semibold text-ink">
-              A place was not found correctly
+              A place wasn&apos;t identified correctly
             </h3>
             <p>
-              Nearr uses information from shared links to help identify
-              real-world places. Sometimes a post may not include enough
-              information, or the wrong place may be detected.
+              Nearr analyzes the video or post you share — what&apos;s
+              visible, what&apos;s said, what&apos;s written, and any
+              location clues available — to identify the real-world place
+              or places it shows. Some videos show more than one place;
+              when that happens, Nearr may surface more than one match.
+              Some videos don&apos;t have enough to go on, or the wrong
+              place gets picked.
             </p>
             <p>
-              If this happens, you can choose a different place manually or
-              contact support with the link so we can review it.
+              If this happens, you can choose a different place manually,
+              or contact support with the link so we can review it.
             </p>
           </div>
           <div>
@@ -81,15 +85,16 @@ export default function SupportPage() {
               I want to delete my account or data
             </h3>
             <p>
-              Email{" "}
+              You can delete your account directly from within Nearr. If
+              you run into trouble doing that, or have another
+              privacy-related request, email{" "}
               <a
                 href={`mailto:${contactEmail}`}
                 className="text-orange-deep underline underline-offset-2"
               >
                 {contactEmail}
               </a>{" "}
-              with your request, and we will help you delete your account or
-              related data.
+              and we&apos;ll help.
             </p>
           </div>
         </div>
@@ -98,8 +103,9 @@ export default function SupportPage() {
       <LegalSection title="Privacy">
         <p>
           Nearr only uses your information to provide the app&apos;s core
-          features, including saving places, showing them on your map, and
-          helping with nearby reminders. For more details, see the{" "}
+          features, including identifying and saving places, showing them
+          on your map, and helping with nearby reminders. For more details,
+          see the{" "}
           <a
             href="/privacy"
             className="text-orange-deep underline underline-offset-2"

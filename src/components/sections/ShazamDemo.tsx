@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-type Clue = "visual" | "caption" | "audio";
+type Clue = "visual" | "caption" | "audio" | "location";
 
 type Scenario = {
   id: string;
@@ -12,6 +12,8 @@ type Scenario = {
   note: string;
   clues: Clue[];
   gradient: string;
+  /** A second credible match, when one video/post shows more than one place. */
+  alsoFound?: string;
 };
 
 const SCENARIOS: Scenario[] = [
@@ -48,7 +50,7 @@ const SCENARIOS: Scenario[] = [
     category: "Stays · Hotel",
     place: "Cliffside hotel, seen in the background",
     note: "Only on screen for 2 seconds",
-    clues: ["visual"],
+    clues: ["visual", "location"],
     gradient: "linear-gradient(160deg, #1c2530 0%, #33465e 40%, #5d7a9c 70%, #cbdcec 100%)",
   },
   {
@@ -57,8 +59,9 @@ const SCENARIOS: Scenario[] = [
     category: "Travel · City",
     place: "Coastal town, somewhere south",
     note: "Caption just says “paradise”",
-    clues: ["caption", "audio"],
+    clues: ["caption", "audio", "location"],
     gradient: "linear-gradient(160deg, #2e1f2a 0%, #6b3f5a 40%, #c96a86 70%, #f2c9b0 100%)",
+    alsoFound: "Cliffside viewpoint just outside town",
   },
 ];
 
@@ -66,6 +69,7 @@ const CLUE_LABEL: Record<Clue, string> = {
   visual: "Visual clue",
   caption: "Caption clue",
   audio: "Audio clue",
+  location: "Location clue",
 };
 
 export function ShazamDemo() {
@@ -127,7 +131,7 @@ export function ShazamDemo() {
 
         <div className="flex flex-col justify-center gap-5">
           <div className="flex flex-wrap gap-2">
-            {(["visual", "caption", "audio"] as Clue[]).map((clue) => {
+            {(["visual", "caption", "audio", "location"] as Clue[]).map((clue) => {
               const isActive = active.clues.includes(clue);
               return (
                 <span
@@ -170,6 +174,14 @@ export function ShazamDemo() {
                 <p className="mt-1 text-sm text-cream-on-dark-soft">
                   {active.category} &middot; {active.note}
                 </p>
+                {active.alsoFound ? (
+                  <p className="mt-3 text-sm text-cream-on-dark-soft">
+                    <span className="font-medium text-cream-on-dark">
+                      Also found:
+                    </span>{" "}
+                    {active.alsoFound}
+                  </p>
+                ) : null}
               </div>
             )}
           </div>

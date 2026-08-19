@@ -25,15 +25,15 @@ export function Hero() {
           </h1>
 
           <p className="max-w-xl text-lg leading-relaxed text-ink-soft sm:text-xl">
-            Share a video from Instagram or TikTok. Nearr follows the clues
-            and finds the place — even when the creator never says where it
-            is — then saves it to your map.
+            Share a video from Instagram, TikTok, or Facebook. Nearr follows
+            the clues and finds the place — even when the creator never says
+            where it is — then saves it to your map.
           </p>
 
           <div className="mt-2 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
             <AppStoreButton source="hero" />
             <p className="text-sm text-ink-muted">
-              For iPhone. Free to start.
+              For iPhone. Free on the App Store.
             </p>
           </div>
         </div>

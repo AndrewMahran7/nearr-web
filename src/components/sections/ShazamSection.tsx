@@ -24,16 +24,15 @@ export function ShazamSection() {
             tone="dark"
             eyebrow="Shazam for places"
             title="Don't know where it is? Send Nearr the video."
-            body="Some places never get named — no caption, no location tag, nothing in the comments. Nearr looks at what's actually in the video: what's visible, what's said, what's written. Try a few scenarios below."
+            body="Some places never get named — no caption, no location tag, nothing in the comments. Nearr looks at what's actually there: what's visible, what's said, what's written, and any location clues buried in the post — then surfaces every credible match, even if a video shows more than one place. Try a few scenarios below."
           />
         </div>
 
         <ShazamDemo />
 
         <p className="max-w-xl text-center text-sm leading-relaxed text-cream-on-dark-soft">
-          Nearr won&apos;t catch everything — some places are too obscure, or
-          the video just doesn&apos;t have enough to go on. But when
-          there&apos;s something to work with, it finds the leads.
+          For harder videos, Nearr follows every available clue and surfaces
+          its best leads.
         </p>
       </Container>
     </section>

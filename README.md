@@ -1,8 +1,9 @@
 # Nearr — Marketing Website
 
 The public marketing site for **Nearr**, an iOS app that turns places you see
-in Instagram/TikTok videos into a real-world map — including "Shazam for
-places," identifying locations even when a creator never names them.
+in Instagram, TikTok, and Facebook videos into a real-world map — including
+"Shazam for places," identifying locations even when a creator never names
+them.
 
 This is an **independent repository**, separate from the Nearr app repo. It
 does not import from, depend on, or modify the app codebase. A handful of
@@ -60,22 +61,14 @@ src/
 
 ## Where things are configured
 
-- **App Store URL**: `src/lib/config.ts` → `APP_STORE_URL`. Currently `null`
-  — no App Store Connect URL exists yet (the app isn't live on the App
-  Store; see `docs/CHECKLIST_UPDATED_2026-08-15.md` in the app repo, which
-  put it at "Stage 0", pre-launch, as of 2026-08-15). Until set, the
-  `AppStoreButton` component still renders normally but links to `#` and
-  still fires the `app_store_cta_clicked` analytics event, so the CTA wiring
-  is provably correct ahead of having a real link. **Set this before running
-  paid traffic.**
-- **Support email**: `src/lib/config.ts` → `SUPPORT_EMAIL`, currently
-  `support@nearr.app`. Two real addresses exist in the app repo and
-  disagree — `support@nearr.app` (used throughout the drafted Privacy/Terms)
-  vs. the founder's personal `andrew.mahran@icloud.com` (used in the app's
-  `docs/legal/support.md` and as the EAS submit Apple ID). This site
-  defaults to the branded address since a paid-campaign site is likely to
-  draw scraper/spam traffic a personal inbox shouldn't have to absorb.
-  **Confirm this is still the right inbox before launch.**
+- **App Store URL**: `src/lib/config.ts` → `APP_STORE_URL`, set to the live
+  listing: `https://apps.apple.com/us/app/nearr/id6764170112`. Every App
+  Store CTA (header, hero, final CTA, place fallback, creator routes) reads
+  this one constant — there's no duplicated/hardcoded URL anywhere else.
+- **Support email**: `src/lib/config.ts` → `SUPPORT_EMAIL`, set to
+  `andrew.mahran@icloud.com` — the founder's personal address, used because
+  Nearr doesn't have a domain-backed inbox yet. This matches the canonical
+  legal repo (see below). Revisit once a `support@` address exists.
 - **Site URL** (for metadata/canonical/sitemap): `src/lib/config.ts` →
   `siteConfig.url`, currently a placeholder `https://nearr.app` — update
   once the production domain is confirmed.
@@ -147,18 +140,36 @@ has no dependency on it):
   in code but the app's own `docs/UI_THEME_NOTES.md` flags it as possibly
   stale. This site uses cream/light per this project's brief — sanity-check
   that direction against current brand intent before a big campaign push.
-- Copy on `/privacy` and `/terms` is adapted from `docs/legal/PRIVACY.md`
-  and `docs/legal/TERMS.md` in the app repo, which are themselves explicitly
-  marked "Draft for internal production readiness only. Lawyer review
-  required before public launch." That caveat is carried forward as a
-  visible banner on both pages here — don't remove it until real legal
-  review has happened.
-- Copy on `/support` is adapted from `docs/legal/support.md` in the app
-  repo (email swapped per the note above).
 - No real screenshots exist in the app repo (confirmed during the brand
   audit). All product UI shown on this site — the hero demo, the Shazam
   scenario demo, the map/place cards — is an original CSS/SVG mockup built
   for this site, not a captured screenshot.
+
+## Legal pages — canonical source of truth
+
+**[`AndrewMahran7/nearr-legal`](https://github.com/AndrewMahran7/nearr-legal)
+is the canonical source of truth for Nearr's public legal text**
+(`privacy.md`, `terms.md`, `support.md`, all lowercase — don't rename them).
+`src/app/privacy/page.tsx`, `terms/page.tsx`, and `support/page.tsx` are a
+manually-kept, styled JSX mirror of that repo's content. There's no
+automated sync — when the legal repo changes, update these three files to
+match by hand. Keep the substance identical; only the markup differs.
+
+## Media readiness
+
+No real product media (screenshots, video) exists yet, so every visual —
+the hero demo, the Shazam scenario demo, the map/place cards — is an
+original CSS/SVG mockup. Component boundaries are already set up so real
+media can drop in later without a rework:
+
+- `src/components/sections/HeroDemo.tsx` — swap the mocked video/share/result
+  panels for a real short product-demo video or screen recording.
+- `src/components/sections/MapMemorySection.tsx` — swap the mocked map and
+  category cards for real Nearr map screenshots.
+- `src/components/sections/ShazamDemo.tsx` — swap the gradient thumbnails
+  per scenario for real recognition-result screenshots.
+
+No media was added in this pass — this is documentation for when it exists.
 
 ## Deployment (not done as part of this build)
 
@@ -169,8 +180,8 @@ touched. To deploy to Vercel later:
    directory.
 2. Set the production domain once confirmed, and update
    `siteConfig.url` in `src/lib/config.ts` to match.
-3. Fill in `APP_STORE_URL` and re-check `SUPPORT_EMAIL` in
-   `src/lib/config.ts` before sending paid traffic.
+3. Re-check `SUPPORT_EMAIL` in `src/lib/config.ts` once a domain-backed
+   inbox exists — it's currently the founder's personal address.
 4. `vercel --prod` (or push to the connected Git branch, if using Git
    integration).
 

@@ -7,8 +7,8 @@ import { Container } from "@/components/ui/Container";
 import { AppStoreButton } from "@/components/ui/AppStoreButton";
 
 const NAV_LINKS = [
-  { href: "#shazam", label: "Shazam for places" },
   { href: "#how-it-works", label: "How it works" },
+  { href: "#shazam", label: "Shazam" },
   { href: "#map", label: "Your map" },
 ];
 
