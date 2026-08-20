@@ -11,7 +11,8 @@ import { getClientAttribution } from "./attribution";
 export const ANALYTICS_EVENTS = {
   LANDING_VIEW: "landing_view",
   APP_STORE_CTA_CLICKED: "app_store_cta_clicked",
-  SHAZAM_SECTION_VIEWED: "shazam_section_viewed",
+  VAYRIN_SECTION_VIEWED: "vayrin_section_viewed",
+  VAYRIN_DEMO_INTERACTED: "vayrin_demo_interacted",
   SAVE_FLOW_SECTION_VIEWED: "save_flow_section_viewed",
   MAP_SECTION_VIEWED: "map_section_viewed",
   CREATOR_LANDING_VIEWED: "creator_landing_viewed",

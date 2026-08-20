@@ -17,7 +17,7 @@ export function Hero() {
       <Container className="relative grid items-center gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-8">
         <div className="flex flex-col items-start gap-6">
           <span className="inline-flex items-center gap-2 rounded-full border border-orange/25 bg-orange/10 px-3.5 py-1.5 text-xs font-semibold tracking-wide text-orange-deep uppercase">
-            Shazam for places
+            Meet Vayrin
           </span>
 
           <h1 className="font-display text-4xl leading-[1.05] font-semibold tracking-tight text-balance text-ink sm:text-5xl md:text-6xl">
@@ -25,8 +25,8 @@ export function Hero() {
           </h1>
 
           <p className="max-w-xl text-lg leading-relaxed text-ink-soft sm:text-xl">
-            Share a video from Instagram, TikTok, or Facebook. Nearr follows
-            the clues and finds the place — even when the creator never says
+            Share a video from Instagram, TikTok, or Facebook. Nearr sends
+            Vayrin to find the place — even when the creator never says
             where it is — then saves it to your map.
           </p>
 

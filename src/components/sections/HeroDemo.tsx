@@ -2,11 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { VayrinAvatar } from "@/components/ui/VayrinAvatar";
 
 const STEPS = [
   { label: "A video someone sent you", key: "video" },
   { label: "Shared to Nearr", key: "share" },
-  { label: "Following the clues", key: "analyzing" },
+  { label: "Vayrin is looking…", key: "analyzing" },
   { label: "Found it — saved to your map", key: "result" },
 ] as const;
 
@@ -201,15 +202,16 @@ function AnalyzingPanel({ active }: { active: boolean }) {
       active={active}
       className="items-center justify-center gap-4 bg-near-black px-8 text-center"
     >
-      <span className="relative flex h-12 w-12 items-center justify-center">
-        <span className="absolute h-full w-full animate-spin rounded-full border-2 border-orange/25 border-t-orange" />
-      </span>
+      <VayrinAvatar
+        state="searching"
+        className="h-12 w-12 animate-pulse drop-shadow-lg"
+      />
       <p className="text-sm font-medium text-cream-on-dark">
-        Following the clues
+        Vayrin is looking&hellip;
       </p>
       <p className="text-xs leading-relaxed text-cream-on-dark-soft">
-        Looking at what&apos;s visible, what&apos;s said, and what&apos;s
-        written.
+        Checking what&apos;s visible, what&apos;s said, what&apos;s written,
+        and where it might be.
       </p>
     </Panel>
   );
@@ -219,12 +221,17 @@ function ResultPanel({ active }: { active: boolean }) {
   return (
     <Panel active={active} className="justify-end bg-near-black">
       <div
-        className="h-[62%] w-full"
+        className="relative h-[62%] w-full"
         style={{
           background:
             "linear-gradient(160deg, #2f3a2e 0%, #4a6b3f 45%, #8ab04b 75%, #d8e8a8 100%)",
         }}
-      />
+      >
+        <VayrinAvatar
+          state="found"
+          className="absolute right-3 bottom-3 h-10 w-10 drop-shadow-lg"
+        />
+      </div>
       <div className="flex-1 rounded-t-[1.5rem] bg-paper p-4">
         <span className="mb-2 inline-flex w-fit items-center rounded-full bg-orange/10 px-2.5 py-1 text-[10px] font-semibold tracking-wide text-orange-deep uppercase">
           Outdoors &middot; Beach

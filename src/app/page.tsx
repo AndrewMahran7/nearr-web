@@ -1,5 +1,5 @@
 import { Hero } from "@/components/sections/Hero";
-import { ShazamSection } from "@/components/sections/ShazamSection";
+import { VayrinSection } from "@/components/sections/VayrinSection";
 import { SaveFlowSection } from "@/components/sections/SaveFlowSection";
 import { MapMemorySection } from "@/components/sections/MapMemorySection";
 import { NearbyReminderSection } from "@/components/sections/NearbyReminderSection";
@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <ShazamSection />
+      <VayrinSection />
       <SaveFlowSection />
       <MapMemorySection />
       <NearbyReminderSection />

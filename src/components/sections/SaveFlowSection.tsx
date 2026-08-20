@@ -23,7 +23,7 @@ const STEPS = [
   },
   {
     title: "It's on your map",
-    body: "Nearr finds the place and drops a pin, ready whenever you're close.",
+    body: "Vayrin finds the place, then Nearr drops a pin — ready whenever you're close.",
     icon: PinIcon,
   },
 ] as const;

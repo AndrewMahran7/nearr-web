@@ -19,7 +19,8 @@ export function FinalCta() {
               Stop losing the places you find online.
             </h2>
             <p className="max-w-md text-base leading-relaxed text-cream-on-dark-soft">
-              Share it once. Nearr remembers it for you.
+              Just ask Vayrin. He&apos;ll find it — Nearr remembers it for
+              you.
             </p>
             <AppStoreButton source="final_cta" tone="accent" />
           </div>

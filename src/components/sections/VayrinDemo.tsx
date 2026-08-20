@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { VayrinAvatar } from "@/components/ui/VayrinAvatar";
+import { track, ANALYTICS_EVENTS } from "@/lib/analytics";
 
 type Clue = "visual" | "caption" | "audio" | "location";
 
@@ -8,13 +10,12 @@ type Scenario = {
   id: string;
   chip: string;
   category: string;
-  place: string;
-  note: string;
   clues: Clue[];
   gradient: string;
-  /** A second credible match, when one video/post shows more than one place. */
-  alsoFound?: string;
-};
+} & (
+  | { place: string; note: string; multiPlaces?: undefined }
+  | { multiPlaces: string[]; place?: undefined; note?: undefined }
+);
 
 const SCENARIOS: Scenario[] = [
   {
@@ -24,7 +25,8 @@ const SCENARIOS: Scenario[] = [
     place: "Unnamed cliff, coastal trail",
     note: "No tags, no comments naming it",
     clues: ["visual", "audio"],
-    gradient: "linear-gradient(160deg, #2b2622 0%, #6b5a45 40%, #a98a5c 70%, #e0c9a0 100%)",
+    gradient:
+      "linear-gradient(160deg, #2b2622 0%, #6b5a45 40%, #a98a5c 70%, #e0c9a0 100%)",
   },
   {
     id: "beach",
@@ -33,7 +35,8 @@ const SCENARIOS: Scenario[] = [
     place: "Hidden Cove Beach",
     note: "Not named in the caption",
     clues: ["visual", "caption"],
-    gradient: "linear-gradient(160deg, #23343a 0%, #2f6b6b 40%, #5fa79a 70%, #cfe6c8 100%)",
+    gradient:
+      "linear-gradient(160deg, #23343a 0%, #2f6b6b 40%, #5fa79a 70%, #cfe6c8 100%)",
   },
   {
     id: "restaurant",
@@ -42,7 +45,8 @@ const SCENARIOS: Scenario[] = [
     place: "Corner table spot, downtown",
     note: "Restaurant never named on screen",
     clues: ["visual", "audio"],
-    gradient: "linear-gradient(160deg, #2e211a 0%, #6b3f2a 40%, #b06a3a 70%, #e8b478 100%)",
+    gradient:
+      "linear-gradient(160deg, #2e211a 0%, #6b3f2a 40%, #b06a3a 70%, #e8b478 100%)",
   },
   {
     id: "hotel",
@@ -51,7 +55,8 @@ const SCENARIOS: Scenario[] = [
     place: "Cliffside hotel, seen in the background",
     note: "Only on screen for 2 seconds",
     clues: ["visual", "location"],
-    gradient: "linear-gradient(160deg, #1c2530 0%, #33465e 40%, #5d7a9c 70%, #cbdcec 100%)",
+    gradient:
+      "linear-gradient(160deg, #1c2530 0%, #33465e 40%, #5d7a9c 70%, #cbdcec 100%)",
   },
   {
     id: "travel",
@@ -60,8 +65,22 @@ const SCENARIOS: Scenario[] = [
     place: "Coastal town, somewhere south",
     note: "Caption just says “paradise”",
     clues: ["caption", "audio", "location"],
-    gradient: "linear-gradient(160deg, #2e1f2a 0%, #6b3f5a 40%, #c96a86 70%, #f2c9b0 100%)",
-    alsoFound: "Cliffside viewpoint just outside town",
+    gradient:
+      "linear-gradient(160deg, #2e1f2a 0%, #6b3f5a 40%, #c96a86 70%, #f2c9b0 100%)",
+  },
+  {
+    id: "itinerary",
+    chip: "Weekend recap",
+    category: "Trip itinerary",
+    multiPlaces: [
+      "Rooftop bar, downtown",
+      "Ramen counter near the pier",
+      "Sunrise lookout trail",
+      "Boutique hotel, old town",
+    ],
+    clues: ["visual", "caption", "audio"],
+    gradient:
+      "linear-gradient(160deg, #241f30 0%, #4a3f6b 40%, #8a7ab0 70%, #d8cbe8 100%)",
   },
 ];
 
@@ -72,7 +91,7 @@ const CLUE_LABEL: Record<Clue, string> = {
   location: "Location clue",
 };
 
-export function ShazamDemo() {
+export function VayrinDemo() {
   const [activeId, setActiveId] = useState(SCENARIOS[0].id);
   const [trackedId, setTrackedId] = useState(activeId);
   const [phase, setPhase] = useState<"analyzing" | "result">("analyzing");
@@ -111,7 +130,10 @@ export function ShazamDemo() {
             type="button"
             role="tab"
             aria-selected={s.id === activeId}
-            onClick={() => setActiveId(s.id)}
+            onClick={() => {
+              setActiveId(s.id);
+              track(ANALYTICS_EVENTS.VAYRIN_DEMO_INTERACTED, { scenario: s.id });
+            }}
             className={`rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-200 ${
               s.id === activeId
                 ? "border-orange bg-orange text-near-black"
@@ -125,32 +147,41 @@ export function ShazamDemo() {
 
       <div className="grid w-full max-w-3xl gap-6 rounded-[1.75rem] border border-near-black-border bg-near-black-elevated p-5 sm:grid-cols-[1fr_1.1fr] sm:p-8">
         <div
-          className="aspect-[4/3] w-full overflow-hidden rounded-2xl sm:aspect-auto sm:h-full"
+          className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl sm:aspect-auto sm:h-full"
           style={{ background: active.gradient }}
-        />
+        >
+          <VayrinAvatar
+            state={phase === "analyzing" ? "searching" : "found"}
+            className={`absolute right-3 bottom-3 h-11 w-11 drop-shadow-lg transition-transform duration-300 ${
+              phase === "analyzing" ? "animate-pulse" : ""
+            }`}
+          />
+        </div>
 
         <div className="flex flex-col justify-center gap-5">
           <div className="flex flex-wrap gap-2">
-            {(["visual", "caption", "audio", "location"] as Clue[]).map((clue) => {
-              const isActive = active.clues.includes(clue);
-              return (
-                <span
-                  key={clue}
-                  className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition-all duration-500 ${
-                    isActive
-                      ? "border-orange/40 bg-orange/15 text-orange-bright"
-                      : "border-near-black-border text-cream-on-dark-soft/70"
-                  }`}
-                >
+            {(["visual", "caption", "audio", "location"] as Clue[]).map(
+              (clue) => {
+                const isActive = active.clues.includes(clue);
+                return (
                   <span
-                    className={`h-1.5 w-1.5 rounded-full ${
-                      isActive ? "bg-orange" : "bg-cream-on-dark-soft/30"
+                    key={clue}
+                    className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition-all duration-500 ${
+                      isActive
+                        ? "border-orange/40 bg-orange/15 text-orange-bright"
+                        : "border-near-black-border text-cream-on-dark-soft/70"
                     }`}
-                  />
-                  {CLUE_LABEL[clue]}
-                </span>
-              );
-            })}
+                  >
+                    <span
+                      className={`h-1.5 w-1.5 rounded-full ${
+                        isActive ? "bg-orange" : "bg-cream-on-dark-soft/30"
+                      }`}
+                    />
+                    {CLUE_LABEL[clue]}
+                  </span>
+                );
+              },
+            )}
           </div>
 
           <div className="min-h-[92px]">
@@ -160,8 +191,28 @@ export function ShazamDemo() {
                   <span className="absolute h-full w-full animate-spin rounded-full border-2 border-orange/25 border-t-orange" />
                 </span>
                 <p className="text-sm font-medium text-cream-on-dark-soft">
-                  Following the clues&hellip;
+                  Vayrin is looking&hellip;
                 </p>
+              </div>
+            ) : active.multiPlaces ? (
+              <div className="animate-fade-up">
+                <p className="text-xs font-semibold tracking-wide text-orange-bright uppercase">
+                  Vayrin found {active.multiPlaces.length} places
+                </p>
+                <ul className="mt-2.5 flex flex-col gap-1.5">
+                  {active.multiPlaces.map((place) => (
+                    <li
+                      key={place}
+                      className="flex items-center gap-2 text-sm text-cream-on-dark"
+                    >
+                      <CheckIcon className="h-3.5 w-3.5 shrink-0 text-success" />
+                      {place}
+                    </li>
+                  ))}
+                </ul>
+                <span className="mt-3 inline-flex w-fit items-center rounded-full bg-orange px-4 py-2 text-xs font-semibold text-near-black">
+                  Save all to map
+                </span>
               </div>
             ) : (
               <div className="animate-fade-up">
@@ -174,19 +225,27 @@ export function ShazamDemo() {
                 <p className="mt-1 text-sm text-cream-on-dark-soft">
                   {active.category} &middot; {active.note}
                 </p>
-                {active.alsoFound ? (
-                  <p className="mt-3 text-sm text-cream-on-dark-soft">
-                    <span className="font-medium text-cream-on-dark">
-                      Also found:
-                    </span>{" "}
-                    {active.alsoFound}
-                  </p>
-                ) : null}
               </div>
             )}
           </div>
         </div>
       </div>
     </div>
+  );
+}
+
+function CheckIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="M20 6 9 17l-5-5" />
+    </svg>
   );
 }

@@ -6,7 +6,7 @@ export const siteConfig = {
   name: "Nearr",
   url: "https://nearr.app", // TODO: confirm production domain before deploy
   description:
-    "Nearr turns the places you see in Instagram, TikTok, and Facebook videos into a real map you can visit. Share a video, Nearr finds the place, and reminds you when you're nearby.",
+    "Nearr turns the places you see in Instagram, TikTok, and Facebook videos into a real map you can visit. Share a video and Vayrin, Nearr's place-finder, tracks down the location — then Nearr saves it and reminds you when you're nearby.",
 };
 
 /**

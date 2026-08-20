@@ -33,6 +33,7 @@ export const metadata: Metadata = {
     "TikTok travel map",
     "save places from Instagram",
     "save places from Facebook",
+    "Vayrin",
   ],
   authors: [{ name: siteConfig.name }],
   openGraph: {

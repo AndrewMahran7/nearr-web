@@ -1,9 +1,10 @@
 # Nearr — Marketing Website
 
 The public marketing site for **Nearr**, an iOS app that turns places you see
-in Instagram, TikTok, and Facebook videos into a real-world map — including
-"Shazam for places," identifying locations even when a creator never names
-them.
+in Instagram, TikTok, and Facebook videos into a real-world map. **Vayrin**
+is Nearr's place-finding companion — send him a video and he identifies the
+location, even when a creator never names it. See "Vayrin brand" below for
+the full positioning and the asset manifest for launch-ready artwork.
 
 This is an **independent repository**, separate from the Nearr app repo. It
 does not import from, depend on, or modify the app codebase. A handful of
@@ -47,7 +48,7 @@ src/
     icon.png apple-icon.png   real Nearr app icon, resized
   components/
     layout/                Header, Footer
-    sections/               homepage sections (Hero, Shazam demo, etc.)
+    sections/               homepage sections (Hero, Vayrin demo, etc.)
     ui/                    small shared primitives (buttons, headings)
     legal/                 Privacy/Terms/Support page chrome
   lib/
@@ -99,8 +100,8 @@ No analytics backend is wired up yet — `track()` currently just
 `console.debug`s in development. When a vendor or first-party endpoint is
 chosen, that's the one function to change (see the `TODO` inside it). Events
 already defined: `landing_view`, `app_store_cta_clicked`,
-`shazam_section_viewed`, `save_flow_section_viewed`, `map_section_viewed`,
-`creator_landing_viewed`.
+`vayrin_section_viewed`, `vayrin_demo_interacted`, `save_flow_section_viewed`,
+`map_section_viewed`, `creator_landing_viewed`.
 
 ## Future-route readiness
 
@@ -141,9 +142,29 @@ has no dependency on it):
   stale. This site uses cream/light per this project's brief — sanity-check
   that direction against current brand intent before a big campaign push.
 - No real screenshots exist in the app repo (confirmed during the brand
-  audit). All product UI shown on this site — the hero demo, the Shazam
+  audit). All product UI shown on this site — the hero demo, the Vayrin
   scenario demo, the map/place cards — is an original CSS/SVG mockup built
   for this site, not a captured screenshot.
+
+## Vayrin brand
+
+**Vayrin is Nearr's place-finding companion — not a separate app.** Product
+hierarchy: Vayrin *finds* (investigates a shared video for visual, caption,
+audio, and location clues, then surfaces the best match or matches); Nearr
+*remembers* (the map, saves, nearby reminders). Tagline: **"Just ask
+Vayrin."**, used sparingly (hero kicker, the Vayrin section heading, and the
+final CTA — not on every section).
+
+`src/components/ui/VayrinAvatar.tsx` is a small SVG stand-in for the
+character (off-white shell, near-black face, Nearr-orange discovery-star
+mark — the reference boards' "Orange Core" direction, chosen because it's
+already Nearr's shipping accent rather than the alternate purple
+exploration). It renders three expression states (`neutral`, `searching`,
+`found`) matching how the reference boards themselves use a simplified
+round avatar in chat bubbles and notification mockups, not the full
+illustrated body. **This is a placeholder, not final character art** — see
+`docs/VAYRIN_ASSET_MANIFEST.md` for the exact production artwork to
+commission and where each piece goes.
 
 ## Legal pages — canonical source of truth
 
@@ -158,18 +179,22 @@ match by hand. Keep the substance identical; only the markup differs.
 ## Media readiness
 
 No real product media (screenshots, video) exists yet, so every visual —
-the hero demo, the Shazam scenario demo, the map/place cards — is an
-original CSS/SVG mockup. Component boundaries are already set up so real
+the hero demo, the Vayrin scenario demo, the map/place cards — is an
+original CSS/SVG mockup, and Vayrin himself is a placeholder SVG avatar
+(see "Vayrin brand" above). Component boundaries are already set up so real
 media can drop in later without a rework:
 
 - `src/components/sections/HeroDemo.tsx` — swap the mocked video/share/result
-  panels for a real short product-demo video or screen recording.
+  panels for a real short product-demo video or screen recording, and swap
+  `VayrinAvatar` for final character artwork.
 - `src/components/sections/MapMemorySection.tsx` — swap the mocked map and
   category cards for real Nearr map screenshots.
-- `src/components/sections/ShazamDemo.tsx` — swap the gradient thumbnails
-  per scenario for real recognition-result screenshots.
+- `src/components/sections/VayrinDemo.tsx` — swap the gradient thumbnails
+  per scenario for real recognition-result screenshots, and swap
+  `VayrinAvatar` for final character artwork.
 
-No media was added in this pass — this is documentation for when it exists.
+No media was added in this pass — see `docs/VAYRIN_ASSET_MANIFEST.md` for
+the exact production manifest.
 
 ## Deployment (not done as part of this build)
 
