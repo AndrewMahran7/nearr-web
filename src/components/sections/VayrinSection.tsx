@@ -18,7 +18,7 @@ export function VayrinSection() {
     <section
       id="vayrin"
       ref={viewRef}
-      className="bg-near-black py-20 text-cream-on-dark sm:py-28"
+      className="scroll-mt-24 bg-near-black py-20 text-cream-on-dark sm:py-28"
     >
       <Container className="flex flex-col items-center gap-10">
         <div

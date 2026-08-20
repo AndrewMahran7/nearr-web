@@ -121,20 +121,19 @@ export function VayrinDemo() {
     <div className="flex flex-col items-center gap-8">
       <div
         className="flex flex-wrap justify-center gap-2"
-        role="tablist"
+        role="group"
         aria-label="Example scenarios"
       >
         {SCENARIOS.map((s) => (
           <button
             key={s.id}
             type="button"
-            role="tab"
-            aria-selected={s.id === activeId}
+            aria-pressed={s.id === activeId}
             onClick={() => {
               setActiveId(s.id);
               track(ANALYTICS_EVENTS.VAYRIN_DEMO_INTERACTED, { scenario: s.id });
             }}
-            className={`rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-200 ${
+            className={`min-h-11 rounded-full border px-4 py-2.5 text-sm font-medium transition-colors duration-200 ${
               s.id === activeId
                 ? "border-orange bg-orange text-near-black"
                 : "border-near-black-border bg-transparent text-cream-on-dark-soft hover:border-cream-on-dark-soft/60 hover:text-cream-on-dark"
@@ -184,7 +183,7 @@ export function VayrinDemo() {
             )}
           </div>
 
-          <div className="min-h-[92px]">
+          <div className="min-h-[92px]" aria-live="polite">
             {phase === "analyzing" ? (
               <div className="flex items-center gap-3">
                 <span className="relative flex h-5 w-5 items-center justify-center">
@@ -238,6 +237,7 @@ function CheckIcon({ className }: { className?: string }) {
   return (
     <svg
       viewBox="0 0 24 24"
+      aria-hidden="true"
       fill="none"
       stroke="currentColor"
       strokeWidth="3"

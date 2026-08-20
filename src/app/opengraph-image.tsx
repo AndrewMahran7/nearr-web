@@ -4,12 +4,19 @@ import { join } from "node:path";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
+export const alt = "Nearr \u2014 Find the places you see online";
 
 export default async function Image() {
-  const iconBuffer = await readFile(
-    join(process.cwd(), "public/brand/app-icon-512.png"),
-  );
-  const iconSrc = `data:image/png;base64,${iconBuffer.toString("base64")}`;
+  let iconSrc: string | undefined;
+  try {
+    const iconBuffer = await readFile(
+      join(process.cwd(), "public/brand/app-icon-512.png"),
+    );
+    iconSrc = `data:image/png;base64,${iconBuffer.toString("base64")}`;
+  } catch {
+    // Keep social previews usable if the existing icon is unavailable.
+    iconSrc = undefined;
+  }
 
   return new ImageResponse(
     (
@@ -40,14 +47,28 @@ export default async function Image() {
             display: "flex",
           }}
         />
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={iconSrc}
-          alt=""
-          width={104}
-          height={104}
-          style={{ borderRadius: 24, marginBottom: 40 }}
-        />
+        {iconSrc ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={iconSrc}
+            alt=""
+            width={104}
+            height={104}
+            style={{ borderRadius: 24, marginBottom: 40 }}
+          />
+        ) : (
+          <div
+            style={{
+              display: "flex",
+              color: "#A8420F",
+              fontSize: 34,
+              fontWeight: 700,
+              marginBottom: 40,
+            }}
+          >
+            Nearr
+          </div>
+        )}
         <div
           style={{
             display: "flex",

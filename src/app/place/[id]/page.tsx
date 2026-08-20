@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { AppStoreButton } from "@/components/ui/AppStoreButton";
 import { OpenInApp } from "./OpenInApp";
+import { createPageMetadata } from "@/lib/metadata";
 
 /**
  * Future Nearr-place deep links: nearr.app/place/<id>.
@@ -13,10 +14,19 @@ import { OpenInApp } from "./OpenInApp";
  * it attempts the app deep link and otherwise shows a generic,
  * always-correct fallback rather than a 404.
  */
-export const metadata: Metadata = {
-  title: "Open in Nearr",
-  robots: { index: false, follow: true },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  return createPageMetadata({
+    title: "Open this place",
+    description: "Open this shared place in Nearr or download Nearr for iPhone.",
+    path: `/place/${encodeURIComponent(id)}`,
+    index: false,
+  });
+}
 
 export default async function PlacePage({
   params,

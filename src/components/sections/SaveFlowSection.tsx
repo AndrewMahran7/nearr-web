@@ -32,7 +32,7 @@ export function SaveFlowSection() {
   const revealRef = useReveal<HTMLDivElement>();
 
   return (
-    <section id="how-it-works" className="py-20 sm:py-28">
+    <section id="how-it-works" className="scroll-mt-24 py-20 sm:py-28">
       <Container className="flex flex-col gap-14">
         <SectionHeading
           align="center"
@@ -88,6 +88,7 @@ function SparkIcon({ className }: { className?: string }) {
   return (
     <svg
       viewBox="0 0 24 24"
+      aria-hidden="true"
       fill="none"
       stroke="currentColor"
       strokeWidth="2"
@@ -104,6 +105,7 @@ function ShareIcon({ className }: { className?: string }) {
   return (
     <svg
       viewBox="0 0 24 24"
+      aria-hidden="true"
       fill="none"
       stroke="currentColor"
       strokeWidth="2"
@@ -122,6 +124,7 @@ function PinIcon({ className }: { className?: string }) {
   return (
     <svg
       viewBox="0 0 24 24"
+      aria-hidden="true"
       fill="none"
       stroke="currentColor"
       strokeWidth="2"

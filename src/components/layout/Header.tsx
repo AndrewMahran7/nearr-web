@@ -7,9 +7,9 @@ import { Container } from "@/components/ui/Container";
 import { AppStoreButton } from "@/components/ui/AppStoreButton";
 
 const NAV_LINKS = [
-  { href: "#how-it-works", label: "How it works" },
-  { href: "#vayrin", label: "Vayrin" },
-  { href: "#map", label: "Your map" },
+  { href: "/#how-it-works", label: "How it works" },
+  { href: "/#vayrin", label: "Vayrin" },
+  { href: "/#map", label: "Your map" },
 ];
 
 export function Header() {
@@ -22,6 +22,15 @@ export function Header() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [menuOpen]);
 
   return (
     <header
@@ -50,15 +59,15 @@ export function Header() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav aria-label="Primary" className="hidden items-center gap-8 md:flex">
           {NAV_LINKS.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-ink-soft transition-colors hover:text-ink"
+              className="py-2 text-sm font-medium text-ink-soft transition-colors hover:text-ink"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
@@ -69,7 +78,7 @@ export function Header() {
         <button
           type="button"
           onClick={() => setMenuOpen((open) => !open)}
-          className="flex h-10 w-10 items-center justify-center rounded-full text-ink md:hidden"
+          className="flex h-11 w-11 items-center justify-center rounded-full text-ink md:hidden"
           aria-expanded={menuOpen}
           aria-controls="mobile-nav"
           aria-label={menuOpen ? "Close menu" : "Open menu"}
@@ -105,16 +114,16 @@ export function Header() {
           id="mobile-nav"
           className="border-t border-border bg-cream px-5 pt-2 pb-6 md:hidden"
         >
-          <nav className="flex flex-col gap-1">
+          <nav aria-label="Mobile primary" className="flex flex-col gap-1">
             {NAV_LINKS.map((link) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
                 className="rounded-lg px-2 py-3 text-base font-medium text-ink"
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </nav>
           <div className="mt-3">

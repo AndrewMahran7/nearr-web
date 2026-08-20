@@ -5,6 +5,7 @@ import {
   ATTRIBUTION_COOKIE_NAME,
   ATTRIBUTION_PARAM_KEYS,
   parseAttributionCookie,
+  sanitizeAttributionValue,
   type AttributionData,
 } from "@/lib/attribution";
 
@@ -22,7 +23,7 @@ export function proxy(request: NextRequest) {
 
   const incoming: AttributionData = {};
   for (const key of ATTRIBUTION_PARAM_KEYS) {
-    const value = searchParams.get(key);
+    const value = sanitizeAttributionValue(searchParams.get(key));
     if (value) incoming[key] = value;
   }
 
@@ -31,7 +32,13 @@ export function proxy(request: NextRequest) {
   // explicit `?creator=` query param, but an explicit query param wins.
   const creatorPathMatch = pathname.match(/^\/c\/([^/]+)/);
   if (creatorPathMatch && !incoming.creator) {
-    incoming.creator = decodeURIComponent(creatorPathMatch[1]);
+    let creatorSegment = creatorPathMatch[1];
+    try {
+      creatorSegment = decodeURIComponent(creatorSegment);
+    } catch {
+      // Keep the raw segment; the sanitizer still bounds and cleans it.
+    }
+    incoming.creator = sanitizeAttributionValue(creatorSegment);
   }
 
   if (Object.keys(incoming).length === 0) {
@@ -53,10 +60,12 @@ export function proxy(request: NextRequest) {
     maxAge: ATTRIBUTION_COOKIE_MAX_AGE_SECONDS,
     path: "/",
     sameSite: "lax",
+    secure: request.nextUrl.protocol === "https:",
   });
   return response;
 }
 
 export const config = {
-  matcher: "/((?!_next/static|_next/image|favicon.ico|icon.png|apple-icon.png).*)",
+  matcher:
+    "/((?!_next/static|_next/image|favicon.ico|icon.png|apple-icon.png|opengraph-image|robots.txt|sitemap.xml|brand/).*)",
 };

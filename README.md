@@ -62,17 +62,19 @@ src/
 
 ## Where things are configured
 
-- **App Store URL**: `src/lib/config.ts` → `APP_STORE_URL`, set to the live
-  listing: `https://apps.apple.com/us/app/nearr/id6764170112`. Every App
-  Store CTA (header, hero, final CTA, place fallback, creator routes) reads
-  this one constant — there's no duplicated/hardcoded URL anywhere else.
-- **Support email**: `src/lib/config.ts` → `SUPPORT_EMAIL`, set to
-  `andrew.mahran@icloud.com` — the founder's personal address, used because
-  Nearr doesn't have a domain-backed inbox yet. This matches the canonical
-  legal repo (see below). Revisit once a `support@` address exists.
-- **Site URL** (for metadata/canonical/sitemap): `src/lib/config.ts` →
-  `siteConfig.url`, currently a placeholder `https://nearr.app` — update
-  once the production domain is confirmed.
+- **App Store URL**: `src/lib/config.ts` → `APP_STORE_URL`, defaulting to the
+  verified live listing `https://apps.apple.com/us/app/nearr/id6764170112`.
+  Override with `NEXT_PUBLIC_APP_STORE_URL` only when Apple changes the
+  canonical destination. The value is validated as an HTTPS Apple URL.
+- **Support email**: `src/lib/config.ts` → `SUPPORT_EMAIL`, defaulting to
+  `andrew.mahran@icloud.com`. Override with `NEXT_PUBLIC_SUPPORT_EMAIL` after
+  the branded inbox is ready. The temporary value matches the legal repo.
+- **Site URL** (metadata, canonicals, sitemap, and robots):
+  `src/lib/config.ts` → `siteConfig.url`, defaulting to the current
+  `https://nearr.app` assumption. Set `NEXT_PUBLIC_SITE_URL` to the confirmed
+  production origin in hosting; path/query/hash values fail validation.
+- Copy `.env.example` to a local ignored env file only when overrides are
+  needed. These are public values and must never contain secrets.
 
 ## Attribution contract
 
@@ -80,7 +82,7 @@ Creator/campaign links need to survive navigation across the site, not just
 land on `/` and get dropped. The contract:
 
 1. **Recognized query params**: `utm_source`, `utm_medium`, `utm_campaign`,
-   `utm_content`, `utm_term`, `creator`, `video`, `ref` (see
+   `utm_content`, `utm_term`, `creator`, `video`, `campaign`, `source`, `ref` (see
    `src/lib/attribution.ts` → `ATTRIBUTION_PARAM_KEYS`).
 2. **Capture**: `src/proxy.ts` runs on every request. If any recognized
    param is present, it's merged into a first-party cookie
@@ -203,11 +205,13 @@ touched. To deploy to Vercel later:
 
 1. `vercel link` (or import the repo in the Vercel dashboard) from this
    directory.
-2. Set the production domain once confirmed, and update
-   `siteConfig.url` in `src/lib/config.ts` to match.
-3. Re-check `SUPPORT_EMAIL` in `src/lib/config.ts` once a domain-backed
-   inbox exists — it's currently the founder's personal address.
+2. Set `NEXT_PUBLIC_SITE_URL` to the confirmed production origin.
+3. Set `NEXT_PUBLIC_SUPPORT_EMAIL` once a domain-backed inbox exists — the
+   checked-in default remains the founder's personal address until then.
 4. `vercel --prod` (or push to the connected Git branch, if using Git
    integration).
 
-No environment variables are required for the current build.
+No environment variables are required for local builds. Production hosting
+should explicitly set the public values documented in `.env.example` once the
+domain and branded support inbox are confirmed. No analytics vendor or secret
+configuration is present.

@@ -42,7 +42,6 @@ export function HeroDemo() {
       {/* Status pill */}
       <div
         className="relative z-10 mb-5 min-h-[2.25rem] rounded-full border border-border bg-paper px-4 py-2 text-center text-sm font-medium text-ink shadow-soft"
-        aria-live="polite"
       >
         {STEPS[step].label}
       </div>
@@ -69,6 +68,7 @@ export function HeroDemo() {
         />
         {/* Saved badge, step 3 only */}
         <div
+          aria-hidden={step !== 3}
           className={`absolute -right-6 top-[12%] z-20 flex items-center gap-1.5 rounded-full bg-success px-3 py-1.5 text-xs font-semibold text-cream shadow-soft transition-all duration-500 ${
             step === 3
               ? "translate-y-0 rotate-3 opacity-100"
@@ -91,18 +91,23 @@ export function HeroDemo() {
       </div>
 
       {/* Step dots */}
-      <div className="mt-6 flex items-center gap-2">
+      <div className="mt-3 flex items-center" role="group" aria-label="Demo steps">
         {STEPS.map((s, i) => (
           <button
             key={s.key}
             type="button"
             onClick={() => setStep(i)}
             aria-label={`Show step: ${s.label}`}
-            aria-current={i === step}
-            className={`h-1.5 rounded-full transition-all duration-300 ${
-              i === step ? "w-6 bg-orange" : "w-1.5 bg-border"
-            }`}
-          />
+            aria-pressed={i === step}
+            className="flex h-11 min-w-11 items-center justify-center rounded-full"
+          >
+            <span
+              aria-hidden="true"
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                i === step ? "w-6 bg-orange" : "w-1.5 bg-border"
+              }`}
+            />
+          </button>
         ))}
       </div>
     </div>
@@ -262,6 +267,7 @@ function ClueChip({
 }) {
   return (
     <div
+      aria-hidden="true"
       className={`absolute z-20 hidden rounded-full border border-border bg-paper px-3 py-1.5 text-xs font-medium text-ink shadow-soft transition-all duration-500 sm:block ${className} ${
         visible
           ? "translate-y-0 opacity-100"
@@ -276,7 +282,7 @@ function ClueChip({
 
 function PlayIcon({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className={className}>
       <path d="M8 5v14l11-7z" />
     </svg>
   );
@@ -286,6 +292,7 @@ function ShareIcon({ className }: { className?: string }) {
   return (
     <svg
       viewBox="0 0 24 24"
+      aria-hidden="true"
       fill="none"
       stroke="currentColor"
       strokeWidth="2"
@@ -304,6 +311,7 @@ function CheckIcon({ className }: { className?: string }) {
   return (
     <svg
       viewBox="0 0 24 24"
+      aria-hidden="true"
       fill="none"
       stroke="currentColor"
       strokeWidth="3"

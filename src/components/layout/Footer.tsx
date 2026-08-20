@@ -34,12 +34,12 @@ export function Footer() {
             </p>
           </div>
 
-          <nav className="flex gap-8">
+          <nav aria-label="Footer" className="flex flex-wrap gap-x-8 gap-y-4">
             {FOOTER_LINKS.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium text-ink-soft transition-colors hover:text-ink"
+                className="py-1 text-sm font-medium text-ink-soft transition-colors hover:text-ink"
               >
                 {link.label}
               </Link>

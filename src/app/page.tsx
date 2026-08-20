@@ -6,6 +6,14 @@ import { NearbyReminderSection } from "@/components/sections/NearbyReminderSecti
 import { ProblemSection } from "@/components/sections/ProblemSection";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { FinalCta } from "@/components/sections/FinalCta";
+import { createPageMetadata, HOME_TITLE } from "@/lib/metadata";
+
+export const metadata = createPageMetadata({
+  title: HOME_TITLE,
+  description:
+    "Share a social video with Nearr. Vayrin looks for the place, then Nearr saves the result to your map so you can find it later.",
+  path: "/",
+});
 
 export default function Home() {
   return (

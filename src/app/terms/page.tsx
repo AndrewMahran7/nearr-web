@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { LegalLayout, LegalSection } from "@/components/legal/LegalLayout";
 import { SUPPORT_EMAIL } from "@/lib/config";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Terms of Service",
   description: "The terms that govern your use of Nearr.",
-};
+  path: "/terms",
+});
 
 const contactEmail = SUPPORT_EMAIL;
 

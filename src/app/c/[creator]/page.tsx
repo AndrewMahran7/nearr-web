@@ -8,17 +8,13 @@ import { NearbyReminderSection } from "@/components/sections/NearbyReminderSecti
 import { ProblemSection } from "@/components/sections/ProblemSection";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { FinalCta } from "@/components/sections/FinalCta";
+import { normalizeCreatorHandle } from "@/lib/attribution";
+import { siteConfig } from "@/lib/config";
+import { createPageMetadata } from "@/lib/metadata";
 
 /**
- * Creator landing pages: nearr.app/c/<creator>.
- *
- * Visiting this route tags the visitor's attribution cookie with
- * `creator=<slug>` (see src/proxy.ts) even without a `?creator=` query
- * param, then renders the same homepage story with a small attribution
- * banner up top. This is intentionally the same content as `/` — the goal
- * right now is a working, attributable link creators can share, not a
- * bespoke per-creator CMS. Per-creator copy/imagery can be layered in here
- * later without changing the route contract.
+ * Attributable creator campaign pages reuse the homepage story. They are
+ * noindex and canonicalize to the homepage to avoid duplicate search results.
  */
 export async function generateMetadata({
   params,
@@ -26,9 +22,14 @@ export async function generateMetadata({
   params: Promise<{ creator: string }>;
 }): Promise<Metadata> {
   const { creator } = await params;
-  return {
-    title: `Nearr — via @${creator}`,
-  };
+  const handle = normalizeCreatorHandle(creator);
+
+  return createPageMetadata({
+    title: `via @${handle}`,
+    description: siteConfig.description,
+    path: "/",
+    index: false,
+  });
 }
 
 export default async function CreatorLandingPage({
@@ -37,10 +38,11 @@ export default async function CreatorLandingPage({
   params: Promise<{ creator: string }>;
 }) {
   const { creator } = await params;
+  const handle = normalizeCreatorHandle(creator);
 
   return (
     <>
-      <CreatorBanner creator={creator} />
+      <CreatorBanner creator={handle} />
       <Hero />
       <VayrinSection />
       <SaveFlowSection />

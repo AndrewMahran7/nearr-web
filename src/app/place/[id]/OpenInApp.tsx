@@ -13,7 +13,7 @@ export function OpenInApp({ id }: { id: string }) {
   useEffect(() => {
     const isIOS = /iPad|iPhone|iPod/.test(window.navigator.userAgent);
     if (!isIOS) return;
-    window.location.href = `nearr://place/${encodeURIComponent(id)}`;
+    window.location.href = `nearr://place/${encodeURIComponent(id.slice(0, 256))}`;
   }, [id]);
 
   return null;

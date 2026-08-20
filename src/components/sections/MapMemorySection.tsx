@@ -43,7 +43,11 @@ export function MapMemorySection() {
   const viewRef = useSectionView<HTMLElement>(ANALYTICS_EVENTS.MAP_SECTION_VIEWED);
 
   return (
-    <section id="map" ref={viewRef} className="bg-cream-elevated py-20 sm:py-28">
+    <section
+      id="map"
+      ref={viewRef}
+      className="scroll-mt-24 bg-cream-elevated py-20 sm:py-28"
+    >
       <Container className="flex flex-col gap-14">
         <SectionHeading
           align="center"
