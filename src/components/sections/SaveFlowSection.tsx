@@ -41,6 +41,25 @@ export function SaveFlowSection() {
           body="No new app habit to learn — it works with how you already save things."
         />
 
+        <div className="relative mx-auto grid w-full max-w-4xl grid-cols-1 items-center gap-6 sm:grid-cols-2 sm:gap-12">
+          <FlowVisual
+            src="/images/marketing/how-it-works-share-to-nearr.webp"
+            alt="Sharing an Instagram Reel to Nearr"
+            label="Share the post to Nearr"
+          />
+          <div
+            aria-hidden="true"
+            className="mx-auto flex h-10 w-10 rotate-90 items-center justify-center rounded-full border border-orange/25 bg-orange/10 text-orange-deep sm:absolute sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rotate-0"
+          >
+            <ArrowIcon className="h-5 w-5" />
+          </div>
+          <FlowVisual
+            src="/images/marketing/how-it-works-quick-check.webp"
+            alt="Nearr Quick Check showing a Lake Powell place result"
+            label="Check the result before saving"
+          />
+        </div>
+
         <div
           ref={revealRef}
           className="reveal grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"
@@ -81,6 +100,53 @@ export function SaveFlowSection() {
         </div>
       </Container>
     </section>
+  );
+}
+
+function FlowVisual({
+  src,
+  alt,
+  label,
+}: {
+  src: string;
+  alt: string;
+  label: string;
+}) {
+  return (
+    <figure className="flex flex-col items-center gap-4">
+      <div className="w-full max-w-[360px] overflow-hidden rounded-[1.75rem] border border-border bg-cream shadow-card">
+        <Image
+          src={src}
+          alt={alt}
+          width={720}
+          height={1279}
+          sizes="(max-width: 639px) calc(100vw - 64px), 360px"
+          loading="lazy"
+          className="h-auto w-full"
+        />
+      </div>
+      <figcaption className="text-sm font-semibold text-ink">
+        {label}
+      </figcaption>
+    </figure>
+  );
+}
+
+function ArrowIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="M5 12h14" />
+      <path d="m14 7 5 5-5 5" />
+    </svg>
   );
 }
 

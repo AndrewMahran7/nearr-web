@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { VayrinAvatar } from "@/components/ui/VayrinAvatar";
 import { track, ANALYTICS_EVENTS } from "@/lib/analytics";
 
@@ -11,7 +12,9 @@ type Scenario = {
   chip: string;
   category: string;
   clues: Clue[];
-  gradient: string;
+  image: string;
+  alt: string;
+  objectPosition?: string;
 } & (
   | { place: string; note: string; multiPlaces?: undefined }
   | { multiPlaces: string[]; place?: undefined; note?: undefined }
@@ -22,65 +25,70 @@ const SCENARIOS: Scenario[] = [
     id: "cliff",
     chip: "Hidden cliff jump",
     category: "Outdoors · Cliff jump",
-    place: "Unnamed cliff, coastal trail",
-    note: "No tags, no comments naming it",
+    place: "A sandstone lake cove",
+    note: "The cliff and water are visible on screen",
     clues: ["visual", "audio"],
-    gradient:
-      "linear-gradient(160deg, #2b2622 0%, #6b5a45 40%, #a98a5c 70%, #e0c9a0 100%)",
+    image: "/images/marketing/vayrin-hidden-cliff-jump.webp",
+    alt: "Cliff jump over a sandstone lake cove",
+    objectPosition: "50% 56%",
   },
   {
     id: "beach",
     chip: "Unnamed beach",
     category: "Outdoors · Beach",
-    place: "Hidden Cove Beach",
-    note: "Not named in the caption",
+    place: "A secluded beach cove",
+    note: "The beach is not named in the post",
     clues: ["visual", "caption"],
-    gradient:
-      "linear-gradient(160deg, #23343a 0%, #2f6b6b 40%, #5fa79a 70%, #cfe6c8 100%)",
+    image: "/images/marketing/vayrin-unnamed-beach.webp",
+    alt: "Secluded tropical beach surrounded by rocky greenery",
+    objectPosition: "58% 55%",
   },
   {
     id: "restaurant",
     chip: "Restaurant, no name",
     category: "Food & drink · Restaurant",
-    place: "Corner table spot, downtown",
-    note: "Restaurant never named on screen",
+    place: "A neighborhood restaurant",
+    note: "The restaurant is not named on screen",
     clues: ["visual", "audio"],
-    gradient:
-      "linear-gradient(160deg, #2e211a 0%, #6b3f2a 40%, #b06a3a 70%, #e8b478 100%)",
+    image: "/images/marketing/vayrin-restaurant-no-name.webp",
+    alt: "Candlelit restaurant with dinner served at an outdoor table",
+    objectPosition: "67% 58%",
   },
   {
     id: "hotel",
     chip: "Hotel in the background",
     category: "Stays · Hotel",
-    place: "Cliffside hotel, seen in the background",
-    note: "Only on screen for 2 seconds",
+    place: "A coastal resort hotel",
+    note: "The hotel appears behind the pool",
     clues: ["visual", "location"],
-    gradient:
-      "linear-gradient(160deg, #1c2530 0%, #33465e 40%, #5d7a9c 70%, #cbdcec 100%)",
+    image: "/images/marketing/vayrin-hotel-background.webp",
+    alt: "Coastal resort hotel behind an infinity pool at sunset",
+    objectPosition: "50% 48%",
   },
   {
     id: "travel",
     chip: "Travel destination",
     category: "Travel · City",
-    place: "Coastal town, somewhere south",
-    note: "Caption just says “paradise”",
+    place: "A clifftop coastal town",
+    note: "The coastline is the main location clue",
     clues: ["caption", "audio", "location"],
-    gradient:
-      "linear-gradient(160deg, #2e1f2a 0%, #6b3f5a 40%, #c96a86 70%, #f2c9b0 100%)",
+    image: "/images/marketing/vayrin-travel-destination.webp",
+    alt: "Clifftop coastal town overlooking the sea at sunset",
+    objectPosition: "66% 52%",
   },
   {
     id: "itinerary",
     chip: "Weekend recap",
     category: "Trip itinerary",
     multiPlaces: [
-      "Rooftop bar, downtown",
-      "Ramen counter near the pier",
-      "Sunrise lookout trail",
-      "Boutique hotel, old town",
+      "Coastal surf lookout",
+      "Ramen stop",
+      "Mountain sunset trail",
+      "Campfire dinner",
     ],
     clues: ["visual", "caption", "audio"],
-    gradient:
-      "linear-gradient(160deg, #241f30 0%, #4a3f6b 40%, #8a7ab0 70%, #d8cbe8 100%)",
+    image: "/images/marketing/vayrin-weekend-recap.webp",
+    alt: "Weekend recap collage with surfing, ramen, a mountain hike, and dinners with friends",
   },
 ];
 
@@ -145,10 +153,26 @@ export function VayrinDemo() {
       </div>
 
       <div className="grid w-full max-w-3xl gap-6 rounded-[1.75rem] border border-near-black-border bg-near-black-elevated p-5 sm:grid-cols-[1fr_1.1fr] sm:p-8">
-        <div
-          className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl sm:aspect-auto sm:h-full"
-          style={{ background: active.gradient }}
-        >
+        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-near-black sm:aspect-auto sm:h-full">
+          {SCENARIOS.map((scenario) => {
+            const isActive = scenario.id === activeId;
+            return (
+              <Image
+                key={scenario.id}
+                src={scenario.image}
+                alt={isActive ? scenario.alt : ""}
+                aria-hidden={!isActive}
+                fill
+                sizes="(max-width: 639px) calc(100vw - 80px), 340px"
+                loading="lazy"
+                className={`object-cover transition-opacity duration-500 ${
+                  isActive ? "opacity-100" : "opacity-0"
+                }`}
+                style={{ objectPosition: scenario.objectPosition ?? "center" }}
+              />
+            );
+          })}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
           <VayrinAvatar
             state={phase === "analyzing" ? "searching" : "found"}
             className={`absolute right-3 bottom-3 h-11 w-11 drop-shadow-lg transition-transform duration-300 ${
