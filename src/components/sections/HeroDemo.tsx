@@ -5,10 +5,10 @@ import Image from "next/image";
 import { VayrinAvatar } from "@/components/ui/VayrinAvatar";
 
 const STEPS = [
-  { label: "A video someone sent you", key: "video" },
+  { label: "A place in a Reel", key: "video" },
   { label: "Shared to Nearr", key: "share" },
   { label: "Vayrin is looking…", key: "analyzing" },
-  { label: "Found it — saved to your map", key: "result" },
+  { label: "Mad Yolks — saved to your map", key: "result" },
 ] as const;
 
 const STEP_MS = 2800;
@@ -47,25 +47,6 @@ export function HeroDemo() {
       </div>
 
       <div className="relative aspect-[9/18.5] w-[280px] sm:w-[300px]">
-        {/* Floating clue chips, step 2 only */}
-        <ClueChip
-          text="Visual clue"
-          className="-left-16 top-[18%] -rotate-6"
-          visible={step === 2}
-          delay="0ms"
-        />
-        <ClueChip
-          text="Caption clue"
-          className="-right-16 top-[38%] rotate-6"
-          visible={step === 2}
-          delay="150ms"
-        />
-        <ClueChip
-          text="Audio clue"
-          className="-left-14 top-[62%] -rotate-3"
-          visible={step === 2}
-          delay="300ms"
-        />
         {/* Saved badge, step 3 only */}
         <div
           aria-hidden={step !== 3}
@@ -138,21 +119,23 @@ function Panel({
 function VideoPanel({ active }: { active: boolean }) {
   return (
     <Panel active={active}>
-      <div
-        className="relative flex h-full flex-col justify-end"
-        style={{
-          background:
-            "linear-gradient(160deg, #3a2f22 0%, #6b4a2b 38%, #c98a4b 68%, #f2c98a 100%)",
-        }}
-      >
+      <div className="relative flex h-full flex-col justify-end">
+        <Image
+          src="/images/demos/mad-yolks.webp"
+          alt=""
+          fill
+          priority
+          sizes="300px"
+          className="object-cover"
+        />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-black/10" />
         <div className="absolute left-1/2 top-[38%] flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm">
           <PlayIcon className="ml-1 h-6 w-6 text-white" />
         </div>
         <div className="relative flex flex-col gap-1.5 p-4 text-white">
-          <p className="text-xs font-medium text-white/70">from a Reel</p>
+          <p className="text-xs font-medium text-white/70">Public Instagram post</p>
           <p className="text-sm leading-snug font-medium">
-            &ldquo;no idea where this is but I need to go 😍&rdquo;
+            Breakfast sandwiches in Santa Cruz
           </p>
         </div>
         <div className="absolute right-3 bottom-20 flex flex-col items-center gap-1 text-white">
@@ -212,11 +195,10 @@ function AnalyzingPanel({ active }: { active: boolean }) {
         className="h-12 w-12 animate-pulse drop-shadow-lg"
       />
       <p className="text-sm font-medium text-cream-on-dark">
-        Vayrin is looking&hellip;
+        I&apos;m looking&hellip;
       </p>
       <p className="text-xs leading-relaxed text-cream-on-dark-soft">
-        Checking what&apos;s visible, what&apos;s said, what&apos;s written,
-        and where it might be.
+        This usually takes a few seconds.
       </p>
     </Panel>
   );
@@ -225,13 +207,15 @@ function AnalyzingPanel({ active }: { active: boolean }) {
 function ResultPanel({ active }: { active: boolean }) {
   return (
     <Panel active={active} className="justify-end bg-near-black">
-      <div
-        className="relative h-[62%] w-full"
-        style={{
-          background:
-            "linear-gradient(160deg, #2f3a2e 0%, #4a6b3f 45%, #8ab04b 75%, #d8e8a8 100%)",
-        }}
-      >
+      <div className="relative h-[62%] w-full">
+        <Image
+          src="/images/demos/mad-yolks.webp"
+          alt=""
+          fill
+          sizes="300px"
+          loading="lazy"
+          className="object-cover"
+        />
         <VayrinAvatar
           state="found"
           className="absolute right-3 bottom-3 h-10 w-10 drop-shadow-lg"
@@ -239,11 +223,11 @@ function ResultPanel({ active }: { active: boolean }) {
       </div>
       <div className="flex-1 rounded-t-[1.5rem] bg-paper p-4">
         <span className="mb-2 inline-flex w-fit items-center rounded-full bg-orange/10 px-2.5 py-1 text-[10px] font-semibold tracking-wide text-orange-deep uppercase">
-          Outdoors &middot; Beach
+          Food &amp; drink
         </span>
-        <p className="text-base font-semibold text-ink">Hidden Cove Beach</p>
+        <p className="text-base font-semibold text-ink">Mad Yolks</p>
         <p className="mt-0.5 text-xs text-ink-muted">
-          Not named in the caption
+          Santa Cruz, California
         </p>
         <div className="mt-3 flex items-center gap-1.5 text-xs font-medium text-success">
           <CheckIcon className="h-3.5 w-3.5" />
@@ -251,32 +235,6 @@ function ResultPanel({ active }: { active: boolean }) {
         </div>
       </div>
     </Panel>
-  );
-}
-
-function ClueChip({
-  text,
-  className,
-  visible,
-  delay,
-}: {
-  text: string;
-  className: string;
-  visible: boolean;
-  delay: string;
-}) {
-  return (
-    <div
-      aria-hidden="true"
-      className={`absolute z-20 hidden rounded-full border border-border bg-paper px-3 py-1.5 text-xs font-medium text-ink shadow-soft transition-all duration-500 sm:block ${className} ${
-        visible
-          ? "translate-y-0 opacity-100"
-          : "pointer-events-none translate-y-2 opacity-0"
-      }`}
-      style={{ transitionDelay: visible ? delay : "0ms" }}
-    >
-      {text}
-    </div>
   );
 }
 

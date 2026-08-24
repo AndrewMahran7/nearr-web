@@ -4,7 +4,7 @@ import { join } from "node:path";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-export const alt = "Nearr \u2014 Find the places you see online";
+export const alt = "Nearr \u2014 Find the place behind the video";
 
 export default async function Image() {
   let iconSrc: string | undefined;
@@ -78,7 +78,7 @@ export default async function Image() {
             lineHeight: 1.05,
           }}
         >
-          Find the places
+          Find the place
         </div>
         <div
           style={{
@@ -89,7 +89,7 @@ export default async function Image() {
             lineHeight: 1.05,
           }}
         >
-          you see online.
+          behind the video.
         </div>
         <div
           style={{
@@ -99,7 +99,7 @@ export default async function Image() {
             marginTop: 28,
           }}
         >
-          Share a video. Nearr finds the place.
+          Share it to Nearr. Get the place.
         </div>
       </div>
     ),

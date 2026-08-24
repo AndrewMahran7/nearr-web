@@ -29,8 +29,7 @@ export function Footer() {
               </span>
             </div>
             <p className="text-sm leading-relaxed text-ink-soft">
-              The places you find online, saved to a map you&apos;ll actually
-              use.
+              Share the video. Find the place. Save it to your map.
             </p>
           </div>
 

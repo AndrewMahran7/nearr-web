@@ -8,8 +8,8 @@ export type Testimonial = {
 };
 
 /**
- * No real testimonials exist yet — Nearr is pre-launch. Add entries here
- * only once you have explicit, in-writing approval from the person quoted
+ * No approved, attributable testimonials are checked into this project. Add
+ * entries only once you have explicit, in-writing approval from the person quoted
  * to use their words in marketing. Until this array has entries, the
  * section renders nothing (see README.md → "Adding testimonials").
  */

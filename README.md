@@ -42,8 +42,8 @@ src/
   app/                    routes (App Router)
     page.tsx              homepage
     privacy/ terms/ support/
-    c/[creator]/          creator landing pages (nearr.app/c/<slug>)
-    place/[id]/           future Nearr place-link fallback (nearr.app/place/<id>)
+    c/[creator]/          creator landing pages (/c/<slug>)
+    place/[id]/           future Nearr place-link fallback (/place/<id>)
     sitemap.ts robots.ts opengraph-image.tsx
     icon.png apple-icon.png   real Nearr app icon, resized
   components/
@@ -70,9 +70,11 @@ src/
   `andrew.mahran@icloud.com`. Override with `NEXT_PUBLIC_SUPPORT_EMAIL` after
   the branded inbox is ready. The temporary value matches the legal repo.
 - **Site URL** (metadata, canonicals, sitemap, and robots):
-  `src/lib/config.ts` → `siteConfig.url`, defaulting to the current
-  `https://nearr.app` assumption. Set `NEXT_PUBLIC_SITE_URL` to the confirmed
-  production origin in hosting; path/query/hash values fail validation.
+  `src/lib/config.ts` → `siteConfig.url`. Local and unconfigured builds use
+  `http://localhost:3000`, omit canonicals, publish an empty sitemap, and
+  disallow indexing. Set `NEXT_PUBLIC_SITE_URL` to the confirmed production
+  origin in hosting; path/query/hash values fail validation. Do not use
+  `nearr.app`: as of 2026-08-24 it belongs to an unrelated product.
 - Copy `.env.example` to a local ignored env file only when overrides are
   needed. These are public values and must never contain secrets.
 
@@ -107,11 +109,11 @@ already defined: `landing_view`, `app_store_cta_clicked`,
 
 ## Future-route readiness
 
-- **Creator landing pages** (`nearr.app/c/<creator>`): implemented today at
+- **Creator landing pages** (`/c/<creator>`): implemented today at
   `src/app/c/[creator]/page.tsx`. Renders the same homepage story with a
   small "via @creator" banner and tags attribution automatically. Per-creator
   copy/imagery can be layered in later without changing the route contract.
-- **Nearr place links** (`nearr.app/place/<id>`): implemented today at
+- **Nearr place links** (`/place/<id>`): implemented today at
   `src/app/place/[id]/page.tsx` as a fallback page (`noindex`) — Nearr
   doesn't yet support sharing a place link (only the original social video),
   so there's no backend to fetch place data from. The page attempts the
@@ -123,8 +125,8 @@ already defined: `landing_view`, `app_store_cta_clicked`,
 ## Adding testimonials
 
 `src/components/sections/Testimonials.tsx` renders nothing while its
-`TESTIMONIALS` array is empty (Nearr is pre-launch — there's no real social
-proof yet, and none was fabricated for this build). To add one, get
+`TESTIMONIALS` array is empty because no approved, attributable customer quote
+is checked into the project. To add one, get
 **explicit, in-writing approval** from the person quoted to use their words
 in marketing, then add `{ quote, name, handle }` to the array.
 
@@ -135,27 +137,18 @@ has no dependency on it):
 
 - `src/app/icon.png`, `src/app/apple-icon.png`, `public/brand/app-icon-*.png`
   — resized from the real Nearr app icon (`assets/icon.png` in the app repo).
-- Brand colors in `src/app/globals.css` — the app's actively-shipping
-  accent `#FF6A1A` and its (currently dormant, light-mode-only) cream
-  palette `#FFF8F1` / `#1F1913` / `#6F6257` / `#E7D6C4`, from
-  `constants/colors.ts` and `lib/theme.tsx` in the app repo. **Note**: the
-  app itself currently ships dark-mode-by-default; the cream palette exists
-  in code but the app's own `docs/UI_THEME_NOTES.md` flags it as possibly
-  stale. This site uses cream/light per this project's brief — sanity-check
-  that direction against current brand intent before a big campaign push.
-- No real screenshots exist in the app repo (confirmed during the brand
-  audit). All product UI shown on this site — the hero demo, the Vayrin
-  scenario demo, the map/place cards — is an original CSS/SVG mockup built
-  for this site, not a captured screenshot.
+- Brand colors in `src/app/globals.css` use the canonical Vayrin system:
+  cream `#F4F2EF`, charcoal `#0F1014`, and Nearr orange `#FF6A1A`.
+- The hero and recognition gallery use real frames extracted from five public
+  source videos in Nearr's labeled evaluation corpus. Product flow,
+  share-sheet, map, and reminder visuals remain lightweight website
+  compositions grounded in current app behavior.
 
 ## Vayrin brand
 
 **Vayrin is Nearr's place-finding companion — not a separate app.** Product
-hierarchy: Vayrin *finds* (investigates a shared video for visual, caption,
-audio, and location clues, then surfaces the best match or matches); Nearr
-*remembers* (the map, saves, nearby reminders). Tagline: **"Just ask
-Vayrin."**, used sparingly (hero kicker, the Vayrin section heading, and the
-final CTA — not on every section).
+hierarchy: Vayrin *finds*; Nearr *remembers* (the map, saves, nearby
+reminders). Tagline: **"Just ask Vayrin."**, used once in the hero.
 
 `src/components/ui/VayrinAvatar.tsx` is a small SVG stand-in for the
 character (off-white shell, near-black face, Nearr-orange discovery-star
@@ -164,9 +157,9 @@ already Nearr's shipping accent rather than the alternate purple
 exploration). It renders three expression states (`neutral`, `searching`,
 `found`) matching how the reference boards themselves use a simplified
 round avatar in chat bubbles and notification mockups, not the full
-illustrated body. **This is a placeholder, not final character art** — see
-`docs/VAYRIN_ASSET_MANIFEST.md` for the exact production artwork to
-commission and where each piece goes.
+illustrated body. No approved shared full-body export currently exists in the
+brand repository, so the site does not create a separate competing character
+render. See `docs/VAYRIN_ASSET_MANIFEST.md` for the current asset status.
 
 ## Legal pages — canonical source of truth
 
@@ -180,23 +173,12 @@ match by hand. Keep the substance identical; only the markup differs.
 
 ## Media readiness
 
-No real product media (screenshots, video) exists yet, so every visual —
-the hero demo, the Vayrin scenario demo, the map/place cards — is an
-original CSS/SVG mockup, and Vayrin himself is a placeholder SVG avatar
-(see "Vayrin brand" above). Component boundaries are already set up so real
-media can drop in later without a rework:
-
-- `src/components/sections/HeroDemo.tsx` — swap the mocked video/share/result
-  panels for a real short product-demo video or screen recording, and swap
-  `VayrinAvatar` for final character artwork.
-- `src/components/sections/MapMemorySection.tsx` — swap the mocked map and
-  category cards for real Nearr map screenshots.
-- `src/components/sections/VayrinDemo.tsx` — swap the gradient thumbnails
-  per scenario for real recognition-result screenshots, and swap
-  `VayrinAvatar` for final character artwork.
-
-No media was added in this pass — see `docs/VAYRIN_ASSET_MANIFEST.md` for
-the exact production manifest.
+Five public-source recognition frames are live and truthfully mapped to exact
+places. Their URLs, evaluation evidence, and extraction timestamps are in
+`docs/WEBSITE_DEMO_GROUND_TRUTH.md`. The map and how-it-works images are
+optimized WebPs with source originals retained under `assets/originals/`,
+outside the served `public/` tree. See `docs/WEBSITE_ASSET_REPORT.md` for the
+production weight and provenance summary.
 
 ## Deployment (not done as part of this build)
 

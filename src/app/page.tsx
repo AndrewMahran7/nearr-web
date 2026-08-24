@@ -3,7 +3,6 @@ import { VayrinSection } from "@/components/sections/VayrinSection";
 import { SaveFlowSection } from "@/components/sections/SaveFlowSection";
 import { MapMemorySection } from "@/components/sections/MapMemorySection";
 import { NearbyReminderSection } from "@/components/sections/NearbyReminderSection";
-import { ProblemSection } from "@/components/sections/ProblemSection";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { FinalCta } from "@/components/sections/FinalCta";
 import { createPageMetadata, HOME_TITLE } from "@/lib/metadata";
@@ -11,7 +10,7 @@ import { createPageMetadata, HOME_TITLE } from "@/lib/metadata";
 export const metadata = createPageMetadata({
   title: HOME_TITLE,
   description:
-    "Share a social video with Nearr. Vayrin looks for the place, then Nearr saves the result to your map so you can find it later.",
+    "Share an Instagram, TikTok, or Facebook video to Nearr. Vayrin finds the place, then Nearr saves it to your map.",
   path: "/",
 });
 
@@ -23,7 +22,6 @@ export default function Home() {
       <SaveFlowSection />
       <MapMemorySection />
       <NearbyReminderSection />
-      <ProblemSection />
       <Testimonials />
       <FinalCta />
     </>

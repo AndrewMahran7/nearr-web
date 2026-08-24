@@ -48,8 +48,8 @@ export function MapMemorySection() {
         <SectionHeading
           align="center"
           eyebrow="Your map"
-          title="Everything you save becomes a map of places you actually care about."
-          body="Food, coffee, hikes, beaches, hotels, whatever you saved — not a database of bookmarks, a visual memory of the real world you've found online."
+          title="Your saved places, on one map."
+          body="Food, coffee, hikes, beaches, hotels — the real-world places you found online, ready when you want to go."
         />
 
         <div ref={revealRef} className="reveal flex flex-col gap-6">

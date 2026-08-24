@@ -6,7 +6,7 @@ import { OpenInApp } from "./OpenInApp";
 import { createPageMetadata } from "@/lib/metadata";
 
 /**
- * Future Nearr-place deep links: nearr.app/place/<id>.
+ * Future Nearr-place deep links: /place/<id> on the configured site origin.
  *
  * Nearr doesn't yet support sharing a place link (only sharing the
  * original social video), so there's no backend to fetch place data from

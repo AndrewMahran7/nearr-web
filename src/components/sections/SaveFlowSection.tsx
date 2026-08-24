@@ -7,23 +7,23 @@ import { useReveal } from "@/lib/useReveal";
 
 const STEPS = [
   {
-    title: "See somewhere you want to go",
-    body: "Scrolling social media and something catches your eye.",
+    title: "See a place",
+    body: "A restaurant, trail, hotel, or view catches your eye.",
     icon: SparkIcon,
   },
   {
-    title: "Tap Share",
-    body: "Use the native share button, just like sending it to a friend.",
+    title: "Share to Nearr",
+    body: "Choose Nearr from the same share sheet you already use.",
     icon: ShareIcon,
   },
   {
-    title: "Choose Nearr",
-    body: "Pick Nearr from the share sheet. That's the whole action.",
+    title: "Vayrin finds it",
+    body: "Get the exact place, or a quick check when the match needs you.",
     icon: null,
   },
   {
-    title: "It's on your map",
-    body: "Vayrin finds the place, then Nearr drops a pin — ready whenever you're close.",
+    title: "Go when you're nearby",
+    body: "Nearr saves it to your map and can remind you when you're close.",
     icon: PinIcon,
   },
 ] as const;
@@ -37,8 +37,8 @@ export function SaveFlowSection() {
         <SectionHeading
           align="center"
           eyebrow="The everyday move"
-          title="See it. Share it. It's on your map."
-          body="No new app habit to learn — it works with how you already save things."
+          title="See it. Share it. Find it. Go."
+          body="One share turns a video into a place you can actually visit."
         />
 
         <div className="relative mx-auto grid w-full max-w-4xl grid-cols-1 items-center gap-6 sm:grid-cols-2 sm:gap-12">

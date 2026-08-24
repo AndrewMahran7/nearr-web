@@ -1,4 +1,4 @@
-const DEFAULT_SITE_URL = "https://nearr.app";
+const DEFAULT_SITE_URL = "http://localhost:3000";
 const DEFAULT_APP_STORE_URL =
   "https://apps.apple.com/us/app/nearr/id6764170112";
 const DEFAULT_SUPPORT_EMAIL = "andrew.mahran@icloud.com";
@@ -46,9 +46,12 @@ function readEmail(name: string, value: string | undefined, fallback: string) {
  * Central public configuration. Defaults keep local builds usable; deployment
  * can override them without spreading launch values across components.
  */
+const siteUrlOverride = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+export const HAS_CONFIGURED_SITE_URL = Boolean(siteUrlOverride);
+
 const configuredSiteUrl = readUrl(
   "NEXT_PUBLIC_SITE_URL",
-  process.env.NEXT_PUBLIC_SITE_URL,
+  siteUrlOverride,
   DEFAULT_SITE_URL,
 );
 const siteUrl = new URL(configuredSiteUrl);
@@ -62,7 +65,7 @@ export const siteConfig = {
   name: "Nearr",
   url: siteUrl.origin,
   description:
-    "Share a social video with Nearr. Vayrin looks for the place, and Nearr saves the result to your map so you can find it later.",
+    "Share a social video with Nearr. Vayrin finds the place, then Nearr saves it to your map and can remind you when you're nearby.",
 };
 
 /** The verified live Nearr App Store listing. */

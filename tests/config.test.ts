@@ -4,6 +4,7 @@ import test from "node:test";
 import {
   absoluteUrl,
   APP_STORE_URL,
+  HAS_CONFIGURED_SITE_URL,
   INDEXABLE_ROUTES,
   siteConfig,
   SUPPORT_EMAIL,
@@ -11,6 +12,8 @@ import {
 
 test("public launch configuration has safe defaults", () => {
   assert.match(siteConfig.url, /^https?:\/\/[^/]+$/);
+  assert.equal(HAS_CONFIGURED_SITE_URL, false);
+  assert.equal(siteConfig.url, "http://localhost:3000");
   assert.equal(new URL(APP_STORE_URL).hostname, "apps.apple.com");
   assert.match(SUPPORT_EMAIL, /^[^\s@]+@[^\s@]+\.[^\s@]+$/);
 });

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -21,7 +22,7 @@ const jakarta = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: `${siteConfig.name} \u2014 Find the places you see online`,
+    default: `${siteConfig.name} \u2014 Find the place behind the video`,
     template: `%s \u2014 ${siteConfig.name}`,
   },
   description: siteConfig.description,
@@ -53,7 +54,7 @@ const jsonLd = {
 
 const serializedJsonLd = JSON.stringify(jsonLd).replace(/</g, "\\u003c");
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="en"

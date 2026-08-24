@@ -16,11 +16,10 @@ export function FinalCta() {
           />
           <div className="relative flex flex-col items-center gap-6">
             <h2 className="font-display max-w-xl text-3xl leading-[1.1] font-semibold tracking-tight text-balance text-cream-on-dark sm:text-4xl">
-              Stop losing the places you find online.
+              See it. Share it. Find it.
             </h2>
             <p className="max-w-md text-base leading-relaxed text-cream-on-dark-soft">
-              Just ask Vayrin. He&apos;ll find it — Nearr remembers it for
-              you.
+              Vayrin finds the place. Nearr remembers it for you.
             </p>
             <AppStoreButton source="final_cta" tone="accent" />
           </div>

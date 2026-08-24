@@ -1,7 +1,13 @@
 import type { MetadataRoute } from "next";
-import { absoluteUrl } from "@/lib/config";
+import { absoluteUrl, HAS_CONFIGURED_SITE_URL } from "@/lib/config";
 
 export default function robots(): MetadataRoute.Robots {
+  if (!HAS_CONFIGURED_SITE_URL) {
+    return {
+      rules: [{ userAgent: "*", disallow: "/" }],
+    };
+  }
+
   return {
     rules: [
       {

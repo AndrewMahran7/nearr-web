@@ -1,16 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  /* Warm cream surface (Nearr's LightColors palette, constants/theme.tsx) */
-  --color-cream: #fff8f1;
-  --color-cream-elevated: #fff3e7;
+  /* Canonical Nearr / Vayrin brand surfaces */
+  --color-cream: #f4f2ef;
+  --color-cream-elevated: #ece9e4;
   --color-paper: #ffffff;
-  --color-border: #e7d6c4;
+  --color-border: #d8d4ce;
 
   /* Ink text on cream */
-  --color-ink: #1f1913;
-  --color-ink-soft: #6f6257;
-  --color-ink-muted: #75695d; /* darkened from the app's #8a7d72 token — that value is under 4.5:1 on cream for body text (WCAG AA) */
+  --color-ink: #0f1014;
+  --color-ink-soft: #51545c;
+  --color-ink-muted: #62656d;
 
   /* Nearr orange (the app-wide shipping accent, constants/colors.ts) */
   --color-orange: #ff6a1a;
@@ -19,16 +19,16 @@
   --color-orange-red: #e5512c;
 
   /* Dark "recognition" surface, used sparingly for the Vayrin section */
-  --color-near-black: #15100c;
-  --color-near-black-elevated: #201811;
-  --color-near-black-border: #362a1f;
-  --color-cream-on-dark: #fff8f1;
-  --color-cream-on-dark-soft: #cbb9a8;
+  --color-near-black: #0f1014;
+  --color-near-black-elevated: #191b20;
+  --color-near-black-border: #30333b;
+  --color-cream-on-dark: #f4f2ef;
+  --color-cream-on-dark-soft: #c4c3bf;
 
   --color-success: #178044;
 
-  --shadow-soft: 0 1px 2px rgba(31, 25, 19, 0.04), 0 8px 24px -12px rgba(31, 25, 19, 0.18);
-  --shadow-card: 0 1px 1px rgba(31, 25, 19, 0.03), 0 20px 48px -20px rgba(31, 25, 19, 0.28);
+  --shadow-soft: 0 1px 2px rgba(15, 16, 20, 0.04), 0 8px 24px -12px rgba(15, 16, 20, 0.18);
+  --shadow-card: 0 1px 1px rgba(15, 16, 20, 0.03), 0 20px 48px -20px rgba(15, 16, 20, 0.28);
 }
 
 @theme inline {

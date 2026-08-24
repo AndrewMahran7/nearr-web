@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { absoluteUrl, siteConfig } from "./config";
+import { absoluteUrl, HAS_CONFIGURED_SITE_URL, siteConfig } from "./config";
 
-export const HOME_TITLE = "Find the places you see online";
+export const HOME_TITLE = "Find the place behind the video";
 export const SOCIAL_IMAGE_PATH = "/opengraph-image";
 
 type PageMetadataOptions = {
@@ -27,7 +27,7 @@ export function createPageMetadata({
   return {
     title: title === HOME_TITLE ? { absolute: socialTitle } : title,
     description,
-    alternates: { canonical },
+    alternates: HAS_CONFIGURED_SITE_URL ? { canonical } : undefined,
     openGraph: {
       type: "website",
       url: canonical,
@@ -39,7 +39,7 @@ export function createPageMetadata({
           url: SOCIAL_IMAGE_PATH,
           width: 1200,
           height: 630,
-          alt: "Nearr \u2014 Find the places you see online",
+          alt: "Nearr \u2014 Find the place behind the video",
         },
       ],
     },
@@ -50,7 +50,7 @@ export function createPageMetadata({
       images: [SOCIAL_IMAGE_PATH],
     },
     robots: {
-      index,
+      index: index && HAS_CONFIGURED_SITE_URL,
       follow: true,
     },
   };
