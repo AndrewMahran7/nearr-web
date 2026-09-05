@@ -16,6 +16,9 @@ export const ANALYTICS_EVENTS = {
   SAVE_FLOW_SECTION_VIEWED: "save_flow_section_viewed",
   MAP_SECTION_VIEWED: "map_section_viewed",
   CREATOR_LANDING_VIEWED: "creator_landing_viewed",
+  SHARED_PLACE_SAVE_CTA: "shared_place_save_cta",
+  SHARED_PLACE_OPEN_IN_APP_CTA: "shared_place_open_in_app_cta",
+  SHARED_PLACE_GET_APP_CTA: "shared_place_get_app_cta",
 } as const;
 
 export type AnalyticsEvent =

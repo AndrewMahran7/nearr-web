@@ -1,0 +1,17 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": [
+          "9S69NZQTUX.com.nearr.ios"
+        ],
+        "components": [
+          {
+            "/": "/p/*",
+            "comment": "Canonical public Nearr place links"
+          }
+        ]
+      }
+    ]
+  }
+}
