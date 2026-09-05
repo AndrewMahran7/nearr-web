@@ -180,20 +180,13 @@ optimized WebPs with source originals retained under `assets/originals/`,
 outside the served `public/` tree. See `docs/WEBSITE_ASSET_REPORT.md` for the
 production weight and provenance summary.
 
-## Deployment (not done as part of this build)
+## Production hosting
 
-This site has not been deployed, and no domain/DNS/GitHub connection was
-touched. To deploy to Vercel later:
+The site is hosted on Vercel as the `nearr-web` project. The GitHub repository
+is connected with `main` as the Production branch; other branches receive
+Preview deployments. The canonical origin is `https://nearrapp.com`, and
+`www.nearrapp.com` permanently redirects to it.
 
-1. `vercel link` (or import the repo in the Vercel dashboard) from this
-   directory.
-2. Set `NEXT_PUBLIC_SITE_URL` to the confirmed production origin.
-3. Set `NEXT_PUBLIC_SUPPORT_EMAIL` once a domain-backed inbox exists — the
-   checked-in default remains the founder's personal address until then.
-4. `vercel --prod` (or push to the connected Git branch, if using Git
-   integration).
-
-No environment variables are required for local builds. Production hosting
-should explicitly set the public values documented in `.env.example` once the
-domain and branded support inbox are confirmed. No analytics vendor or secret
+See [`docs/HOSTING.md`](docs/HOSTING.md) for the build, environment, domain,
+deployment, verification, and rollback runbook. No analytics vendor or secret
 configuration is present.
