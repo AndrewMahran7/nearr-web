@@ -46,11 +46,13 @@ The required web-only DNS records are:
 
 | Type | Name | Value |
 | --- | --- | --- |
-| `A` | `@` | `76.76.21.21` |
-| `A` | `www` | `76.76.21.21` |
+| `A` | `@` | `216.198.79.1` |
+| `A` | `@` | `64.29.17.1` |
+| `CNAME` | `www` | `38074872c67eede8.vercel-dns-017.com` |
 
-These are the exact targets returned by `vercel domains inspect` during the
-initial setup. Change only the existing parking records for `@` and `www`.
+These are the exact highest-priority targets returned by
+`vercel domains verify` during the initial setup. Change only the existing
+parking records for `@` and `www`.
 Do not remove or replace MX, SPF, DKIM, DMARC, verification, or unrelated TXT
 records if any are added later. Do not replace the domain's nameservers.
 
