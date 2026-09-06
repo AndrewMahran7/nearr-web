@@ -1,9 +1,4 @@
-import type { Metadata } from "next";
-import Image from "next/image";
-import { Container } from "@/components/ui/Container";
-import { AppStoreButton } from "@/components/ui/AppStoreButton";
-import { OpenInApp } from "./OpenInApp";
-import { createPageMetadata } from "@/lib/metadata";
+import { permanentRedirect } from "next/navigation";
 
 /**
  * Future Nearr-place deep links: /place/<id> on the configured site origin.
@@ -14,50 +9,11 @@ import { createPageMetadata } from "@/lib/metadata";
  * it attempts the app deep link and otherwise shows a generic,
  * always-correct fallback rather than a 404.
  */
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}): Promise<Metadata> {
-  const { id } = await params;
-  return createPageMetadata({
-    title: "Open this place",
-    description: "Open this shared place in Nearr or download Nearr for iPhone.",
-    path: `/place/${encodeURIComponent(id)}`,
-    index: false,
-  });
-}
-
 export default async function PlacePage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-
-  return (
-    <div className="flex flex-1 items-center py-20 sm:py-28">
-      <Container className="flex max-w-md flex-col items-center gap-6 text-center">
-        <OpenInApp id={id} />
-        <Image
-          src="/brand/app-icon-256.png"
-          alt=""
-          width={64}
-          height={64}
-          className="rounded-2xl shadow-card"
-        />
-        <div className="flex flex-col gap-2">
-          <h1 className="font-display text-2xl font-semibold text-ink">
-            This place lives in Nearr
-          </h1>
-          <p className="text-base leading-relaxed text-ink-soft">
-            Shared place links open right in the app. Get Nearr to see the
-            details, save it to your map, and get reminded when
-            you&apos;re nearby.
-          </p>
-        </div>
-        <AppStoreButton source="place_fallback" />
-      </Container>
-    </div>
-  );
+  permanentRedirect(`/p/${encodeURIComponent(id)}`);
 }

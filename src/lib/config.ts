@@ -2,6 +2,8 @@ const DEFAULT_SITE_URL = "http://localhost:3000";
 const DEFAULT_APP_STORE_URL =
   "https://apps.apple.com/us/app/nearr/id6764170112";
 const DEFAULT_SUPPORT_EMAIL = "andrew.mahran@icloud.com";
+const DEFAULT_PUBLIC_PLACE_API_URL =
+  "https://rlqvxdwtetxsqxhqztkw.supabase.co/functions/v1/public-place";
 
 function readUrl(
   name: string,
@@ -84,6 +86,13 @@ export const SUPPORT_EMAIL = readEmail(
   "NEXT_PUBLIC_SUPPORT_EMAIL",
   process.env.NEXT_PUBLIC_SUPPORT_EMAIL,
   DEFAULT_SUPPORT_EMAIL,
+);
+
+/** Public, field-bounded Supabase Edge endpoint; no secret is embedded. */
+export const PUBLIC_PLACE_API_URL = readUrl(
+  "NEXT_PUBLIC_PUBLIC_PLACE_API_URL",
+  process.env.NEXT_PUBLIC_PUBLIC_PLACE_API_URL,
+  DEFAULT_PUBLIC_PLACE_API_URL,
 );
 
 export const INDEXABLE_ROUTES = [
