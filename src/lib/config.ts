@@ -67,7 +67,7 @@ export const siteConfig = {
   name: "Nearr",
   url: siteUrl.origin,
   description:
-    "Share a social video with Nearr. Vayrin finds the place, then Nearr saves it to your map and can remind you when you're nearby.",
+    "Find places from TikTok and Instagram, save them to your map, get reminded when you're nearby, and share places with friends.",
 };
 
 /** The verified live Nearr App Store listing. */

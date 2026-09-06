@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  /* Canonical Nearr / Vayrin brand surfaces */
+  /* Canonical Nearr brand surfaces */
   --color-cream: #f4f2ef;
   --color-cream-elevated: #ece9e4;
   --color-paper: #ffffff;
@@ -18,7 +18,7 @@
   --color-orange-bright: #ff8a1c;
   --color-orange-red: #e5512c;
 
-  /* Dark "recognition" surface, used sparingly for the Vayrin section */
+  /* Dark product surface */
   --color-near-black: #0f1014;
   --color-near-black-elevated: #191b20;
   --color-near-black-border: #30333b;
@@ -80,6 +80,7 @@ body {
   background: var(--color-cream);
   color: var(--color-ink);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  overflow-x: clip;
 }
 
 ::selection {
@@ -129,4 +130,77 @@ body {
   outline-offset: 2px;
   border-radius: 4px;
   box-shadow: 0 0 0 4px var(--color-orange-deep);
+}
+
+.topo-dark {
+  background-color: var(--color-near-black);
+  background-image:
+    linear-gradient(rgba(244, 242, 239, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(244, 242, 239, 0.035) 1px, transparent 1px),
+    radial-gradient(circle at 80% 18%, rgba(255, 106, 26, 0.15), transparent 28%);
+  background-size: 54px 54px, 54px 54px, auto;
+}
+
+.hero-orbit {
+  position: absolute;
+  width: min(62rem, 90vw);
+  aspect-ratio: 1;
+  top: 18%;
+  right: -33rem;
+  border: 1px solid rgba(255, 106, 26, 0.2);
+  border-radius: 999px;
+  box-shadow:
+    0 0 0 72px rgba(255, 106, 26, 0.025),
+    0 0 0 144px rgba(255, 106, 26, 0.018);
+  pointer-events: none;
+}
+
+.hero-product {
+  animation: product-arrive 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.pin-pulse {
+  animation: pin-pulse 2.2s ease-out infinite;
+}
+
+.notification-card {
+  animation: notification-arrive 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 0.2s;
+}
+
+@keyframes product-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes pin-pulse {
+  0%, 55% {
+    box-shadow: 0 0 0 0 rgba(255, 106, 26, 0.55);
+  }
+  100% {
+    box-shadow: 0 0 0 9px rgba(255, 106, 26, 0);
+  }
+}
+
+@keyframes notification-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 639px) {
+  .comment-cloud > :last-child {
+    grid-column: 1 / -1;
+  }
 }

@@ -15,11 +15,15 @@ export function FinalCta() {
             }}
           />
           <div className="relative flex flex-col items-center gap-6">
-            <h2 className="font-display max-w-xl text-3xl leading-[1.1] font-semibold tracking-tight text-balance text-cream-on-dark sm:text-4xl">
-              See it. Share it. Find it.
+            <p className="text-xs font-bold tracking-[0.16em] text-orange-bright uppercase">
+              Your next place is already in your feed
+            </p>
+            <h2 className="font-display max-w-2xl text-4xl leading-[1.02] font-semibold tracking-[-0.04em] text-balance text-cream-on-dark sm:text-5xl">
+              Find it now. Remember it when you&apos;re near.
             </h2>
             <p className="max-w-md text-base leading-relaxed text-cream-on-dark-soft">
-              Vayrin finds the place. Nearr remembers it for you.
+              Send the video to Nearr and turn the place behind it into
+              somewhere you can actually go.
             </p>
             <AppStoreButton source="final_cta" tone="accent" />
           </div>

@@ -41,10 +41,10 @@ export function AppStoreButton({
       <AppleGlyph className="h-7 w-7 shrink-0" />
       <span className="flex flex-col leading-none">
         <span className={`text-[11px] tracking-wide ${toneClasses.subtext}`}>
-          Download on the
+          on the App Store
         </span>
         <span className="text-xl font-semibold tracking-tight">
-          App Store
+          Get Nearr
         </span>
       </span>
     </a>

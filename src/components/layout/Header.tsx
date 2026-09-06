@@ -7,9 +7,8 @@ import { Container } from "@/components/ui/Container";
 import { AppStoreButton } from "@/components/ui/AppStoreButton";
 
 const NAV_LINKS = [
-  { href: "/#vayrin", label: "Vayrin" },
   { href: "/#how-it-works", label: "How it works" },
-  { href: "/#map", label: "Your map" },
+  { href: "/#features", label: "Features" },
 ];
 
 export function Header() {
@@ -55,7 +54,7 @@ export function Header() {
             priority
           />
           <span className="font-display text-xl font-bold tracking-tight text-ink">
-            Nearr
+            NEARR
           </span>
         </Link>
 
@@ -120,7 +119,7 @@ export function Header() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
-                className="rounded-lg px-2 py-3 text-base font-medium text-ink"
+                className="rounded-lg px-2 py-3 text-base font-medium text-ink hover:bg-cream-elevated"
               >
                 {link.label}
               </Link>

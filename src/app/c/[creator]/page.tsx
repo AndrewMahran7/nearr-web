@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { CreatorBanner } from "@/components/CreatorBanner";
 import { Hero } from "@/components/sections/Hero";
-import { VayrinSection } from "@/components/sections/VayrinSection";
+import { GatekeepingSection } from "@/components/sections/GatekeepingSection";
 import { SaveFlowSection } from "@/components/sections/SaveFlowSection";
+import { ExactPlaceSection } from "@/components/sections/ExactPlaceSection";
 import { MapMemorySection } from "@/components/sections/MapMemorySection";
-import { NearbyReminderSection } from "@/components/sections/NearbyReminderSection";
-import { ProblemSection } from "@/components/sections/ProblemSection";
-import { Testimonials } from "@/components/sections/Testimonials";
+import { BeyondSaveSection } from "@/components/sections/BeyondSaveSection";
+import { SharingSection } from "@/components/sections/SharingSection";
 import { FinalCta } from "@/components/sections/FinalCta";
 import { normalizeCreatorHandle } from "@/lib/attribution";
 import { siteConfig } from "@/lib/config";
@@ -44,12 +44,12 @@ export default async function CreatorLandingPage({
     <>
       <CreatorBanner creator={handle} />
       <Hero />
-      <VayrinSection />
+      <GatekeepingSection />
       <SaveFlowSection />
+      <ExactPlaceSection />
       <MapMemorySection />
-      <NearbyReminderSection />
-      <ProblemSection />
-      <Testimonials />
+      <BeyondSaveSection />
+      <SharingSection />
       <FinalCta />
     </>
   );

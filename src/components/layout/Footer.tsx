@@ -25,11 +25,11 @@ export function Footer() {
                 className="rounded-[8px]"
               />
               <span className="font-display text-lg font-bold tracking-tight text-ink">
-                Nearr
+                NEARR
               </span>
             </div>
             <p className="text-sm leading-relaxed text-ink-soft">
-              Share the video. Find the place. Save it to your map.
+              Find the place behind the video. Keep it on your map.
             </p>
           </div>
 

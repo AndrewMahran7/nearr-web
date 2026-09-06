@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { absoluteUrl, HAS_CONFIGURED_SITE_URL, siteConfig } from "./config";
 
 export const HOME_TITLE = "Find the place behind the video";
-export const SOCIAL_IMAGE_PATH = "/opengraph-image";
+export const SOCIAL_IMAGE_PATH = "/og.png";
 
 type PageMetadataOptions = {
   title: string;
